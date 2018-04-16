@@ -45,7 +45,7 @@ def textbooks():
 
 # have the name of the textbook at the top
 # back button
-# button to create a popup of sellers (just desscribe what it does)
+# button to create a popup of sellers (just describe what it does)
 @application.route("/textbooks/<textbook>", methods=["GET", "POST"])
 def textbook_individual(textbook):
     return render_template("textbook_individual.html", textbook = textbook)
@@ -57,4 +57,4 @@ def calendar():
     return render_template("calendar.html")
  
 if __name__ == "__main__":
-    application.run()
+    application.run(port=8080)
