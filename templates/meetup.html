@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<h1>ComGrads</h1>
+	</head>
+	<body>
+		<form action="dashboard">
+			<button type="submit">Back to Profile</button>
+		</form>
+		<form>
+			<button type="submit">Create meetup request (clicking on this should create a popup to enter the meetup details)</button>
+		</form>
+		Calendar<br>
+		Month: which month you want to look at<br><br>		
+		The days within that month that have a meetup request can have a marking on it e.g. M
+<!--calendar synced with something more common like google or personal calendar on phone-->
+<!--then again it seems hard-->
+        <div>
+            <h2>(List of meetup requests here)</h2>
+            <p>Example: timothy<br>
+                (meetup details here, e.g. location, time, etc)<br>
+                <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
+                <button type="button">Accept</button>
+                <button type="button">Reject</button>
+            </p>
+        </div>
+	</body>
+</html>
