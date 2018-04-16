@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h2>Account Creation</h2>
-		<form>
+		<form action="/">
 			Username: <input type="text" placeholder="Enter Username" required><br><br>
 			Password: <input type="password" placeholder="Enter Password" required><br><br>
 			Email: <input type="text" placeholder="Enter email address" required><br><br>
@@ -24,8 +24,8 @@
 				<option value="COMP">Computer Science</option>
 			</select>
 			<br><br>
-			<button type="submit" formmethod="POST">Create Account</button>
-			<button type="reset" value="Reset">Cancel</button>
+		    <button type="submit" formmethod="POST">Create Account</button>
+		    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>
 		</form>
 	</body>
 </html>
