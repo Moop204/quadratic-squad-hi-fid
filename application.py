@@ -36,22 +36,17 @@ def match():
 def message():
     return render_template("message.html")
 
-# find textbooks button, describe what it does
-# list textbook for sale button, describe what it does
-# example link to textbook page below
+# done
 @application.route("/textbooks", methods=["GET", "POST"])
 def textbooks():
     return render_template("textbooks.html")
 
-# have the name of the textbook at the top
-# back button
-# button to create a popup of sellers (just describe what it does)
+# done
 @application.route("/textbooks/<textbook>", methods=["GET", "POST"])
 def textbook_individual(textbook):
     return render_template("textbook_individual.html", textbook = textbook)
 
-# back button
-# use text to describe something like (calendar here)
+# done
 @application.route("/calendar", methods=["GET", "POST"])
 def calendar():
     return render_template("calendar.html")
