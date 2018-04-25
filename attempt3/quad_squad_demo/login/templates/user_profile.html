@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <title>
-        {{ username }}
-    </title>
+	<head>
+		<a href="home.html">
+			<h1>ComGrads</h1>
+		</a>
+	</head>
 	<body>
-        <h1>{{ username }}</h1>
-        <div>
-            name: firstname lastname<br>
-            university: UNSW<br>
-            (rest of details here)<br>
-        </div>
-		<form>
-			<button type="button">Send match request</button>
+	{% block content %}
+		<form action="dashboard/" method="POST">
+			{% csrf_token %}
+			{{form}}  
+			<button type="submit">Back to Profile</button>
 		</form>
-		<br>
+	{% endblock %}
 	</body>
 </html>

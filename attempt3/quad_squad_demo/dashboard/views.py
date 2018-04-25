@@ -19,5 +19,5 @@ def main_textbook(request):
     return render(request, 'textbook.html',) 
 
 def main_profile(request):
-    return render(request, 'edit.html',) 
+    return render(request, 'user_profile.html',) 
 
