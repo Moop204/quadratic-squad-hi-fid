@@ -17,4 +17,7 @@ def main_meetup(request):
 
 def main_textbook(request):
     return render(request, 'textbook.html',) 
-# Create your views here.
+
+def main_profile(request):
+    return render(request, 'edit.html',) 
+

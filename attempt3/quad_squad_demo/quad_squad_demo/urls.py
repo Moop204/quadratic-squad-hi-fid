@@ -26,27 +26,21 @@ urlpatterns = [
     path('meetup/', include('meetup.urls')),
     path('message/', include('message.urls')),
     path('textbook/', include('textbook.urls')),
-    path('user_profile/', include('user_profile.urls')),
+    path('edit/', include('user_profile.urls')),
 ]
 
 urlpatterns += [
     # Redirects startup to login page
     path('', RedirectView.as_view(url='/login/')),
     path('login/dashboard/', RedirectView.as_view(url='/dashboard/')),
-    # Redirects back to dashboard (doesn't work)
-    path('dashboard/match/', RedirectView.as_view(url='/match/')),
-    path('dashboard/meetup/', RedirectView.as_view(url='/meetup/')),
-    path('dashboard/message', RedirectView.as_view(url='/message/')),
-    path('cc', RedirectView.as_view(url='/textbook/')),
-    path('textbook/dashboard/', RedirectView.as_view(url='/dashboard/')),
+
     # return to dashboard 
     path('dashboard/message/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('dashboard/textbook/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('dashboard/meetup/dashboard/', RedirectView.as_view(url='/dashboard/')),    
     path('dashboard/match/dashboard/', RedirectView.as_view(url='/dashboard/')),
+    path('dashboard/edit/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('textbook/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('textbook/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('login/credentials/dashboard', RedirectView.as_view(url='/dashboard/')),
-    path('dashboard/edit/', RedirectView.as_view(url='/profile/edit')),
-
 ]
