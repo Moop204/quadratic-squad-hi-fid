@@ -41,7 +41,6 @@ urlpatterns += [
     path('dashboard/match/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('dashboard/edit/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('login/credentials/dashboard/', RedirectView.as_view(url='/dashboard/')),
-    path('login/credentials/dashboard', RedirectView.as_view(url='/dashboard/')),
 ]
 
 
