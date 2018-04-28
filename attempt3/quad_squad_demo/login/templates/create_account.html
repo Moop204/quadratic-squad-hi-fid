@@ -10,21 +10,8 @@
 		<h2>Account Creation</h2>
 		<form action="dashboard/">
 			{% csrf_token %}
-			Username: <input type="text" placeholder="Enter Username" required><br><br>
-			Password: <input type="password" placeholder="Enter Password" required><br><br>
-			Email: <input type="text" placeholder="Enter email address" required><br><br>
-			Date of Birth: <input type="date" placeholder="DD/MM/YYYY" required><br><br>
-			University: 
-			<select>
-				<option value="UNSW">UNSW</option>
-				<option value="USYD">USYD</option>
-			</select>
-			<br><br>
-			Degree:
-			<select>
-				<option value="SENG">Software Engineering</option>
-				<option value="COMP">Computer Science</option>
-			</select>
+			{{ form.as_ul }}
+
 			<br><br>
 		    <button type="submit" formmethod="POST">Create Account</button>
 		    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>

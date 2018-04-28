@@ -21,12 +21,12 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('login.urls')),
+    path('dashboard/user/', include('user_profile.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('match/', include('match.urls')),
     path('meetup/', include('meetup.urls')),
     path('message/', include('message.urls')),
     path('textbook/', include('textbook.urls')),
-    path('edit/', include('user_profile.urls')),
 ]
 
 urlpatterns += [
@@ -39,7 +39,7 @@ urlpatterns += [
     path('dashboard/textbook/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('dashboard/meetup/dashboard/', RedirectView.as_view(url='/dashboard/')),    
     path('dashboard/match/dashboard/', RedirectView.as_view(url='/dashboard/')),
-    path('dashboard/edit/dashboard/', RedirectView.as_view(url='/dashboard/')),
+    path('dashboard/user/edit/dashboard/', RedirectView.as_view(url='/dashboard/')),
     path('login/credentials/dashboard/', RedirectView.as_view(url='/dashboard/')),
 ]
 

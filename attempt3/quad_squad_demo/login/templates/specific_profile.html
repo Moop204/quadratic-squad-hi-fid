@@ -13,14 +13,13 @@
 		</form>
             </br>
             </br>
-		<form action="dashboard/" method="POST">
+		<form action="add/" method="POST">
 			{% csrf_token %}
-			{{ form.as_ul }} 
-			<button type="submit">Save Change</button>
+			<button type="submit">Add Match</button>
 		</form>
-		<form action="dashboard/" method="POST">
+		<form action="add/" method="POST">
 			{% csrf_token %}
-			<button type="submit">Discard Changes</button>
+			<button type="submit">Save Change</button>
 		</form>
 	{% endblock %}
 	</body>
