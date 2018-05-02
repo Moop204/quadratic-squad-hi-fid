@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import loginForm
+from .controller import *
 from user_profile.forms import createAccountForm
 
 # Create your views here.
@@ -16,9 +17,15 @@ def create_account(request):
         form = createAccountForm(request.POST)
     else:
         form = createAccountForm()
-    return render( request, 'create_account.html', {'form':form})
-    
+    render( request, 'create_account.html', {'form':form})
+    return redirect('credentials')
+
 def login(request):
-    return render( request, 'create_account.html',)
-
-
+    if request.method == 'POST':
+        in_username = request.POST['username']
+        in_password = request.POST['password']
+        if loginQueries.loginValidation(in_username, in_password) == True:
+            user_id = loginQueries.loginID(in_username, in_password)
+            render(request, 'create_account.html',)
+            return redirect('dashboard')
+    return redirect('submit_credentials')

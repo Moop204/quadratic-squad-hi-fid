@@ -5,12 +5,12 @@
 	</head>
 	<body>
 	{% block content %}
-        <form action="dashboard/" method="POST">
+        <form method="POST">
 		{% csrf_token %}
 		{{form.as_ul}}  
 		<button type="submit" name="form_login" value="login">Login</button>
 		</form>
-        <form action="credentials/" method="POST">
+        <form method="POST">
 		{% csrf_token %}
 		<button type="submit" name="form_create" value="create">Create Account</button>
 	{% endblock %}

@@ -13,7 +13,7 @@ class editAccountForm(forms.Form):
     )
     birthday = forms.DateField(
         input_formats=['%d/%m/%Y'],
-        widget=forms.DateInput(format = '%d/%m/%Y'),
+        #widget=forms.DateInput(format = '%d/%m/%Y'),
         label='Date of Birth',
         required= True, 
     )
