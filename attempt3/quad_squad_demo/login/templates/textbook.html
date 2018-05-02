@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<body>
+	{% block content %}
 		Textbooks<br><br>
-		<input type="text" placeholder="Search"><br>
 		<form action="dashboard/" method="GET">
 			<button type="submit">Back to Dashboard</button>
 		</form>
 
-        <form action="textbooks/example_textbook/">
+        <form action="textbooks/example_textbook/" method="POST">
+			{% csrf_token %}
+			{{ form.as_ul }}
 		    <button type="submit">Find Textbooks</button><br>
 		    This button should search for anything that matches the text that is typed into the search bar and refresh the textbook list accordingly<br>
         </form>
 		<button type="submit">List Textbook for sale</button><br>
 		Button creates a popup for the user to enter information for the textbook giving its name, author, edition(if there is one), condition of textbook ...<br>
+	{% endblock %}
 	</body>
 </html>

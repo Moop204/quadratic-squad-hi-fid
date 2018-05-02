@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from .choices import *
+from quad_squad_demo.choices import *
 from django.forms.widgets import *
 
 class editAccountForm(forms.Form):
