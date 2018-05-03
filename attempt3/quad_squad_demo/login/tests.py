@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-
+from user_profile.models import * 
 # Create your tests here.
 
 class LoginTestClass(TestCase):
@@ -8,6 +8,7 @@ class LoginTestClass(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        
         print("what am I doing")
 
     def setUp(self):
@@ -25,3 +26,5 @@ class LoginTestClass(TestCase):
 
     def test_something_that_will_fail(self):
         self.assertTrue(True)
+
+    

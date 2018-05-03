@@ -1,9 +1,11 @@
-
+from user_profile.models import User
+import logging
 
 class loginQueries():
     def loginValidation(username, password):
-        result = Entry.objects.filter(username=username).filter(password=password)
-        if result.length > 1 or result.length == 0:
+        result = User.objects.filter(username=username).filter(password=password).first()
+        print(result)
+        if result == None:
             return False
         else:
             return True

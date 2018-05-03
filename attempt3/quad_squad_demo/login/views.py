@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect 
 from .forms import loginForm
-from .controller import *
 from user_profile.forms import createAccountForm
+from .controller import *
+from user_profile.models import *
 
 # Create your views here.
 def index(request):
@@ -10,7 +11,12 @@ def index(request):
         form = loginForm(request.POST)
     else:
         form = loginForm()
-    return render( request, 'home.html', {'form':form})
+    render( request, 'home.html', {'form':form})
+    if request.method == 'POST':
+        return login(request)
+    else:
+        form = loginForm()
+        return render( request, 'home.html', {'form':form})
 
 def create_account(request):
     if request.method == 'POST':
@@ -20,6 +26,7 @@ def create_account(request):
     render( request, 'create_account.html', {'form':form})
     return redirect('credentials')
 
+# possibly move to controller
 def login(request):
     if request.method == 'POST':
         in_username = request.POST['username']
