@@ -10,6 +10,6 @@ urlpatterns += [
     path('meetup/', views.main_meetup, name='main_meetup'),
     path('message/', views.main_message, name='main_message'),
     path('textbook/', views.main_textbook, name='main_textbook'),
-    path('user/edit/', views.main_profile, name='main_textbook'),
+    path('user/edit/', views.main_profile, name='edit'),
 ]
 

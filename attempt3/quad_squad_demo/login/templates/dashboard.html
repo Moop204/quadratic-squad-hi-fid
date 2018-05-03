@@ -13,7 +13,6 @@
             {{ user.degree }}
             Bio:
             {{ user.description }}
-        {% endblock %}
         </div>
 
         <div>
@@ -21,26 +20,32 @@
             university: UNSW<br>
             (rest of details here)<br>
         </div>
-		<form action="user/edit/">
-			<button type="submit">Edit Profile</button>
+		<form method='POST'>
+			{% csrf_token %}
+			<button type="submit" name="edit">Edit Profile</button>
 		</form>
 		<br>
-		<form action="match/">
-			<button type="submit">Matches</button>
+		<form method='POST'>
+			{% csrf_token %}
+			<button type="submit" name="match">Matches</button>
 		</form>
 		<br>
-		<form action="meetup/">
-			<button type="submit">Meetups</button>
+		<form method='POST'>
+			{% csrf_token %}
+			<button type="submit" name="meetup">Meetups</button>
 		</form>
 		<br>
-		<form action="message/">
-			<button type="submit">Messages</button>
+		<form method='POST'>
+			{% csrf_token %}
+			<button type="submit" name="message">Messages</button>
 		</form>
 		<br>
-		<form action="textbook/">
-			<button type="submit">Textbooks</button>
+		<form method='POST'>
+			{% csrf_token %}
+			<button type="submit" name="textbook">Textbooks</button>
 		</form>
 		<br>
 		<br>
+        {% endblock %}
 	</body>
 </html>

@@ -1,9 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 def index(request):
+    # HERE BE USER QUERIES
+    if request.method == 'POST' and 'edit' in request.POST:
+        return redirect('edit')
+    elif request.method == 'POST' and 'meetup' in request.POST:
+        return redirect('main_meetup')
+    elif request.method == 'POST' and 'match' in request.POST:
+        return redirect('main_match')
+    elif request.method == 'POST' and 'message' in request.POST:
+        return redirect('main_message')
+    elif request.method == 'POST' and 'textbook' in request.POST:
+        return redirect('main_textbook')
     return render(request, 'dashboard.html',)
 
 def main_match(request):
