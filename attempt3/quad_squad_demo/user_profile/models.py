@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
  
 # Create your models here.
 class University(models.Model):
@@ -15,15 +16,9 @@ class Degree(models.Model):
     def __str__(self):
         return self.name
 
-class User(models.Model):
-    username = models.CharField(max_length=20) 
-    password = models.CharField(max_length=20)
+class ExtUser(User):
     dob = models.DateField() 
-    name = models.CharField(max_length=40) 
-    #preferred = models.CharField(max_length=20)
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
-    #course_list = models.ForeignKey(Courses)
-    #calendar = ???
     description = models.CharField(max_length=300)   
 
     def __str__(self):
