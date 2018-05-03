@@ -20,7 +20,7 @@ class editAccountForm(forms.Form):
     university = forms.ChoiceField(
         choices = LIST_UNIVERSITIES, 
         help_text="Which university you go to", 
-        label='University ',
+        label='University',
         required= True, 
     )
     degree = forms.ChoiceField(

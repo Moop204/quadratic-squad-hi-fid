@@ -12,6 +12,7 @@ class LoginTestClass(TestCase):
         uni.save()
         degree = Degree(name='sample degree')
         degree.university = uni 
+        degree.save()
         print("what am I doing")
 
     def setUp(self):

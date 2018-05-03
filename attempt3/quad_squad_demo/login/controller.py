@@ -11,5 +11,5 @@ class loginQueries():
             return True
 
     def loginID(username, password):
-        return Entry.objects.filter(username=username).filter(password=password)
+        return User.objects.filter(username=username).filter(password=password).first()
   
