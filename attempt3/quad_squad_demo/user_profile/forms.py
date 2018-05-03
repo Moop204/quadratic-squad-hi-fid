@@ -14,7 +14,7 @@ class editAccountForm(forms.Form):
     dob = forms.DateField(
         input_formats=['%Y-%m-%d'],
         #widget=forms.DateInput(format = '%d/%m/%Y'),
-        placeholder='yyyy-mm-dd', 
+        #placeholder='yyyy-mm-dd', 
         label='Date of Birth',
         required= True, 
     )
