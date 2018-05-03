@@ -7,6 +7,5 @@ urlpatterns = [
 ]
 
 urlpatterns += [   
-    path('', views.login, name='submit_credentials'),
     path('credentials/', views.create_account, name='create_account'),
 ]

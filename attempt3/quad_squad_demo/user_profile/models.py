@@ -1,5 +1,5 @@
 from django.db import models
-
+ 
 # Create your models here.
 class University(models.Model):
     name = models.CharField(max_length=20) 
@@ -18,7 +18,7 @@ class Degree(models.Model):
 class User(models.Model):
     username = models.CharField(max_length=20) 
     password = models.CharField(max_length=20)
-    dob = models.DateTimeField('date of birth') 
+    dob = models.DateField() 
     name = models.CharField(max_length=40) 
     #preferred = models.CharField(max_length=20)
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
@@ -32,7 +32,7 @@ class User(models.Model):
 class Textbook(models.Model):
     title = models.CharField(max_length=20) 
     author= models.CharField(max_length=20) 
-    pubDate = models.DateTimeField() 
+    pubDate = models.DateField() 
 
     def __str__(self):
         return self.title

@@ -5,15 +5,16 @@ from quad_squad_demo.choices import *
 from django.forms.widgets import *
 
 class editAccountForm(forms.Form):
-    preferredName = forms.CharField(
-        help_text="Enter Preferred", 
-        label='Preferred Name',
-        label_suffix='',
-        required= True, 
-    )
-    birthday = forms.DateField(
-        input_formats=['%d/%m/%Y'],
+    #preferredName = forms.CharField(
+    #    help_text="Enter Preferred", 
+    #    label='Preferred Name',
+    #    label_suffix='',
+    #    required= True, 
+    #)
+    dob = forms.DateField(
+        input_formats=['%Y-%m-%d'],
         #widget=forms.DateInput(format = '%d/%m/%Y'),
+        placeholder='yyyy-mm-dd', 
         label='Date of Birth',
         required= True, 
     )
