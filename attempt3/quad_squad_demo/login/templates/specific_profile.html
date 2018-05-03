@@ -11,15 +11,15 @@
 			{% csrf_token %}
 			<button type="submit">Back to Dashboard</button>
 		</form>
-            </br>
-            </br>
+        </br>
+        name: {{ user.name }} </br>
+        dob: {{ user.dob }} </br>
+        description: {{ user.description }} </br>
+        (other info to be added later)
+        </br>
 		<form action="add/" method="POST">
 			{% csrf_token %}
-			<button type="submit">Add Match</button>
-		</form>
-		<form action="add/" method="POST">
-			{% csrf_token %}
-			<button type="submit">Save Change</button>
+			<button type="submit">Send Match Request</button>
 		</form>
 	{% endblock %}
 	</body>

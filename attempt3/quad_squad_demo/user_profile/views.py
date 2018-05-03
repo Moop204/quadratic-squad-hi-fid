@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import createAccountForm, editAccountForm
 
+from user_profile.models import User # bad style, move this into controller later
+
 def index(request):
     if request.method == 'POST':
         form = editAccountForm(request.POST)
@@ -11,6 +13,7 @@ def index(request):
     return render(request, 'user_profile.html', {'form': form}, {'bus': 'DAWG'}, ) 
 
 def specific_index(request, user_id):
-    return render(request, 'specific_profile.html', {'user_id': user_id}, ) 
+    user = User.objects.filter(id=user_id).first() # bad style, move this into controller later
+    return render(request, 'specific_profile.html', {'user': user}, ) 
 
 # Create your views here.
