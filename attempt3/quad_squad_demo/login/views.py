@@ -32,8 +32,7 @@ def create_account(request):
     if request.method =='POST' and 'form_create' in request.POST: 
         print("FORM CREATE")
         return redirect('create_account')
-    elif 'submit' in request.POST: 
-        print("SUBMIT")
+    elif 'submit' in request.POST and createAccountForm(request.POST).is_valid(): 
         in_dob = request.POST['dob']
         in_degree = request.POST['degree']
         in_email = request.POST['email']

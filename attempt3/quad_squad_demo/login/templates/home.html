@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<h1>ComGrads</h1>
-	</head>
-	<body>
-	{% block content %}
-        <form method="POST">
-		{% csrf_token %}
-		{{form.as_ul}}  
-		<button type="submit" name="form_login" value="login">Login</button>
-		</form>
-        <form method="POST">
-		{% csrf_token %}
-		<button type="submit" name="form_create" value="create">Create Account</button>
-	{% endblock %}
-	</body>  
-</html>
+{% extends "base_unlogged.html" %}
+
+{% block content %}
+    <form method="POST">
+	{% csrf_token %}
+	{{form.as_ul}}  
+	<button type="submit" name="form_login" value="login">Login</button>
+	</form>
+    <form method="POST">
+	{% csrf_token %}
+	<button type="submit" name="form_create" value="create">Create Account</button>
+{% endblock content %}
 

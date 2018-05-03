@@ -2,6 +2,7 @@ from user_profile.models import ExtUser, Degree
 import logging
 
 class loginQueries():
+    # returns whether the credentials given have any corresponding records
     def loginValidation(username, password):
         result = User.objects.filter(username=username).filter(password=password).first()
         print(result)
@@ -9,9 +10,6 @@ class loginQueries():
             return False
         else:
             return True
-
-    def loginID(username, password):
-        return User.objects.filter(username=username).filter(password=password).first()
 
 class userQueries():
     def addUser(dob, degree_id, email, desc, password, username, first_name, last_name):

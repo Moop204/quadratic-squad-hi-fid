@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<h1>Profile Details</h1>
-	</head>
-	<body>
-        <div>
+{% extends "base_logged.html" %}
         {% block content %}
-            <h2>Welcome {{ user.name }}</h2>
-            Attending: 
-            {{ user.university }}
+        <div>
+            <h2>Profile Details</h2>
+            <h3>Welcome {{ name }}</h3>
+            <!--Attending: 
+            {{ user.university }}--> <br>
             Studying:
-            {{ user.degree }}
-            Bio:
-            {{ user.description }}
+            {{ degree }} <br>
+            Bio: <br>
+            {{ description }} desc <--
         </div>
 
         <div>
@@ -46,6 +42,5 @@
 		</form>
 		<br>
 		<br>
-        {% endblock %}
-	</body>
-</html>
+        {% endblock content %}
+

@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<a href="home.html">
-			<h1>ComGrads</h1>
-		</a>
-	</head>
-	<body>
-	{% block content %}
-		<h2>Account Creation</h2>
-		<form>
-			{% csrf_token %}
-			{{ form.as_ul }}
+{% extends "base_unlogged.html" %}
 
-			<br><br>
-		    <button type="submit" name="submit" formmethod="POST">Create Account</button>
-		</form>
-		    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>
+{% block content %}
+	<h2>Account Creation</h2>
+	<form>
+		{% csrf_token %}
+		{{ form.as_ul }}
 
-	{% endblock %}
-	</body>
-</html>
+		<br><br>
+	    <button type="submit" name="submit" formmethod="POST">Create Account</button>
+	</form>
+	    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>
+
+{% endblock content %}
+

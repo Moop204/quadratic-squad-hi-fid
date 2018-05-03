@@ -1,6 +1,6 @@
 from user_profile.models import User, Matches
 
-Class matchMaker:
+class matchMaker:
     # given the user id, returns a list of User objects, where each user in the list is compatible with the given user
     # compatibility is currently determined via a degree comparison
     def findMatches(user_id):

@@ -17,7 +17,7 @@ class Degree(models.Model):
         return self.name
 
 class ExtUser(User):
-    dob = models.DateField() 
+    dob = models.DateField(help_text='Format yyyy-mm-dd') 
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)   
 
