@@ -5,6 +5,18 @@
 	</head>
 	<body>
         <div>
+        {% block content %}
+            <h2>Welcome {{ user.name }}</h2>
+            Attending: 
+            {{ user.university }}
+            Studying:
+            {{ user.degree }}
+            Bio:
+            {{ user.description }}
+        {% endblock %}
+        </div>
+
+        <div>
             name: john smith<br>
             university: UNSW<br>
             (rest of details here)<br>
