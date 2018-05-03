@@ -8,7 +8,10 @@ class LoginTestClass(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        
+        uni = University(name='sample university', location='sample location')
+        uni.save()
+        degree = Degree(name='sample degree')
+        degree.university = uni 
         print("what am I doing")
 
     def setUp(self):
