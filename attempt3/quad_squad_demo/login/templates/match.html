@@ -10,7 +10,7 @@
 		</form>
 
 		<div>
-            <h2>List of Match Requests</h2>
+            <h2>Match Requests</h2>
             {% if received_list %}
                 {% for user in match_requests %}
                   USERRR 
@@ -27,7 +27,7 @@
         </div>
 
         <div>
-            <h2>List of Matches</h2>
+            <h2>Matches</h2>
             {% if matched_list %}
                 {% for user in matched_list %}
                   {{user.first_name }} 
@@ -39,7 +39,7 @@
         </div>
 
 		<div>
-            <h2>List of Pending Requests</h2>
+            <h2>Pending Requests</h2>
             {% if pending_list %}
                 {% for user in match_requests %}
                   USERRR 
