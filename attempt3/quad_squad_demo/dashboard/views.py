@@ -18,7 +18,7 @@ def index(request):
     elif request.method == 'POST' and 'meetup' in request.POST:
         return redirect('main_meetup')
     elif request.method == 'POST' and 'match' in request.POST:
-        return redirect('main_match')
+        return redirect('match')
     elif request.method == 'POST' and 'message' in request.POST:
         return redirect('main_message')
     elif request.method == 'POST' and 'textbook' in request.POST:

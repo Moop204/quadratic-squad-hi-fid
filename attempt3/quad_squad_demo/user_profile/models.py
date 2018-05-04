@@ -20,9 +20,9 @@ class ExtUser(User):
     dob = models.DateField(help_text='Format yyyy-mm-dd') 
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)   
-
+    
     def __str__(self):
-        return self.name
+        return self.first_name + self.last_name     
 
 class Textbook(models.Model):
     title = models.CharField(max_length=20) 
@@ -38,16 +38,16 @@ class Recommend_Textbook(models.Model):
     #type = models.IntegerField()
 
 class Message(models.Model):
-    user1 = models.ForeignKey(User, related_name='user1', on_delete=models.CASCADE)
-    user2 = models.ForeignKey(User, related_name='user2', on_delete=models.CASCADE)
+    user1 = models.ForeignKey(ExtUser, related_name='user1', on_delete=models.CASCADE)
+    user2 = models.ForeignKey(ExtUser, related_name='user2', on_delete=models.CASCADE)
     textFile = models.FilePathField()
 
     def __str__(self):
         return self.textFile
                    
 class Matches(models.Model):
-    sender = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name='receiver', on_delete=models.CASCADE)
+    sender = models.ForeignKey(ExtUser, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(ExtUser, related_name='receiver', on_delete=models.CASCADE)
     MATCH_STATUS=(
         ('p','Pending'),
         ('a','Accepted'),
@@ -55,8 +55,8 @@ class Matches(models.Model):
     status = models.CharField(max_length=1, choices=MATCH_STATUS, blank=False, help_text='Matches')
 
 class Pending_Meetup(models.Model):
-    host = models.ForeignKey(User, related_name='host', on_delete=models.CASCADE)
-    guest = models.ForeignKey(User, related_name='guest',  on_delete=models.CASCADE)
+    host = models.ForeignKey(ExtUser, related_name='host', on_delete=models.CASCADE)
+    guest = models.ForeignKey(ExtUser, related_name='guest',  on_delete=models.CASCADE)
     status = models.IntegerField()
     location = models.CharField(max_length=20)
     time = models.DateTimeField('') #  CHECK 

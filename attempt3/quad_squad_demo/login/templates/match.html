@@ -6,12 +6,12 @@
 			<button type="submit">Back to Dashboard</button>
 		</form>
 		<form action="" method="GET">
-			<button type="submit">Find matches (clicking on this should create a match preferences popup)</button>
+			<button type="submit" name="find">Find matches (clicking on this should create a match preferences popup)</button>
 		</form>
 
 		<div>
-            <h2>(List of match requests here)</h2>
-            {% if match_requests %}
+            <h2>List of Match Requests</h2>
+            {% if received_list %}
                 {% for user in match_requests %}
                   USERRR 
                 {% endfor %}
@@ -27,11 +27,34 @@
         </div>
 
         <div>
-            <h2>(List of matches here)</h2>
-            <p>Example: kevin
-                <button type="button" onclick="window.location='/user/kevin'";>Profile</button>
+            <h2>List of Matches</h2>
+            {% if matched_list %}
+                {% for user in matched_list %}
+                  {{user.first_name }} 
+                  {{user.last_name }} <br>
+                {% endfor %}
+            {% else %}
+            No match requests currently =( 
+            {% endif %}
+        </div>
+
+		<div>
+            <h2>List of Pending Requests</h2>
+            {% if pending_list %}
+                {% for user in match_requests %}
+                  USERRR 
+                {% endfor %}
+            {% else %}
+            No match requests currently =( 
+            {% endif %}
+
+            <p>Example: timothy
+                <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
+                <button type="button">Accept</button>
+                <button type="button">Reject</button>
             </p>
         </div>
+
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
