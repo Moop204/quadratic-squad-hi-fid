@@ -1,0 +1,15 @@
+{% extends "base_unlogged.html" %}
+
+{% block content %}
+	<h2>Account Creation</h2>
+	<form>
+		{% csrf_token %}
+		{{ form }}
+
+		<br><br>
+	    <button type="submit" name="submit" formmethod="POST">Create Account</button>
+	</form>
+	    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>
+
+{% endblock content %}
+
