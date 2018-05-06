@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm 
-from .models import ExtUser
+from .models import ExtUser, Degree
 from django.forms import ModelForm
 
 # form for logging in
@@ -15,8 +15,8 @@ class loginForm(AuthenticationForm):
 class createAccountForm(ModelForm):
     class Meta:
         model = ExtUser
-        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'degree', 'description', 'dob' ]
-
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'description', 'dob' ]
+    degree = forms.ModelChoiceField(queryset=Degree.objects.all())
 # form for editing user profiles
 class editAccountForm(forms.Form):
     dob = forms.DateField(
