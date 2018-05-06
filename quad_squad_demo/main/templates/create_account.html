@@ -4,7 +4,7 @@
 	<h2>Account Creation</h2>
 	<form>
 		{% csrf_token %}
-		{{ form }}
+		{{ form.as_ul }}
 
 		<br><br>
 	    <button type="submit" name="submit" method="POST">Create Account</button>
