@@ -1,14 +1,19 @@
 from .models import ExtUser, Degree
-#dashboard
+
+# queries involving user
 class userQueries():
+    # search for user given their id
     def findUser(u_id):
         user = ExtUser.objects.filter(id=u_id).first()
         return user 
 
+    # search for a degree's name given a user id  
     def findUserDegree(u_id):
         user = ExtUser.objects.filter(id=u_id).first()
-        return user.degree.name
+        degree = Degree.objects.filter(id=user.degree_id).first()
+        return degree.name
 
+    # add a record to the user table 
     def addUser(dob, degree_id, email, desc, password, username, first_name, last_name):
         degree_id = int(degree_id)
         degree = Degree.objects.filter(id=degree_id).first()
@@ -25,15 +30,7 @@ class userQueries():
         newUser.user_permissions.add(1)
         return newUser.save()  
 
-    def findUser(u_id):
-        user = ExtUser.objects.filter(id=u_id).first()
-        return user 
-
-    def findUserDegree(u_id):
-        user = ExtUser.objects.filter(id=u_id).first()
-        degree = Degree.objects.filter(id=user.degree_id).first()
-        return degree.name
-
+# queries involved in the logging in process
 class loginQueries():
     # returns whether the credentials given have any corresponding records
     def loginValidation(username, password):
@@ -44,7 +41,18 @@ class loginQueries():
         else:
             return True
 
+    # checks whether credentials exist 
+    def authLogin(request):
+        in_username = request.POST['username']
+        in_password = request.POST['password']
+        user = authenticate(request, username=in_username, password=in_password)
+        if user is not None:
+            login(request, user) 
+            return True 
+        else:
+            return False 
 
+# queries involved with matches
 class matchMaker:
     # given the user id, returns a list of User objects, where each user in the list is compatible with the given user
     # compatibility is currently determined via a degree comparison

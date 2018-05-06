@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index_login, name='login'),
+    path('login/', views.index_login, name='login'),
     path('dashboard/', views.index_dashboard, name='dashboard'),
     path('match/', views.index_match, name='match'),
     path('meetup/', views.index_meetup, name='meetup'),
@@ -13,10 +14,6 @@ urlpatterns = [
     path('edit/', views.index_user_profile, name='user_profile'),
 ]
 urlpatterns += [   
-    path('match/', views.main_match, name='main_match'),
-    path('meetup/', views.main_meetup, name='main_meetup'),
-    path('message/', views.main_message, name='main_message'),
-    path('textbook/', views.main_textbook, name='main_textbook'),
     path('user/edit/', views.main_profile, name='edit'),
     path('sign_up/', views.create_account, name='sign_up'),
 ]

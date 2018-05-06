@@ -35,7 +35,6 @@ class Textbook(models.Model):
 class Recommend_Textbook(models.Model):
     textbook = models.ForeignKey(Textbook, on_delete=models.CASCADE)
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
-    #type = models.IntegerField()
 
 class Message(models.Model):
     user1 = models.ForeignKey(ExtUser, related_name='user1', on_delete=models.CASCADE)
@@ -59,7 +58,7 @@ class Pending_Meetup(models.Model):
     guest = models.ForeignKey(ExtUser, related_name='guest',  on_delete=models.CASCADE)
     status = models.IntegerField()
     location = models.CharField(max_length=20)
-    time = models.DateTimeField('') #  CHECK 
+    time = models.DateTimeField('')  
     date = models.DateTimeField('') 
     description = models.CharField(max_length=300) 
 
