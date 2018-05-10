@@ -15,10 +15,14 @@ class loginForm(AuthenticationForm):
 class createAccountForm(ModelForm):
     class Meta:
         model = ExtUser
-        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'description', 'dob' ]
-    degree = forms.ModelChoiceField(queryset=Degree.objects.all())
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'degree', 'description', 'dob' ]
+    #degree = forms.ModelChoiceField(queryset=Degree.objects.all())
 # form for editing user profiles
 class editAccountForm(forms.Form):
+    class Meta:
+        model = ExtUser
+        fields = ['password', 'email', 'description', 'degree']
+    """
     dob = forms.DateField(
         input_formats=['%Y-%m-%d'],
         label='Date of Birth',
@@ -50,7 +54,7 @@ class editAccountForm(forms.Form):
         label='Description ',
         required= False, 
     )
-    
+    """
     def clean_data(self, data):
         cl_data = self.cleaned_data[data]
         return cl_data

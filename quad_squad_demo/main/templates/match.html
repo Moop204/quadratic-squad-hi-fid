@@ -2,18 +2,20 @@
 	<body>
         {% block content %}
         <h2>Matches</h2>
-		<form action="dashboard">
-			<button type="submit">Back to Dashboard</button>
+		<form method="POST">
+           {% csrf_token %} 
+			<button type="submit" name="return">Back to Dashboard</button>
 		</form>
-		<form action="" method="GET">
-			<button type="submit" name="find">Find matches (clicking on this should create a match preferences popup)</button>
+		<form method="POST">
+           {% csrf_token %} 
+			<button type="submit" name="find">Find matches</button>
 		</form>
 
 		<div>
             <h2>Match Requests</h2>
             {% if received_list %}
                 {% for user in match_requests %}
-                  USERRR 
+                  {{user}} <br>
                 {% endfor %}
             {% else %}
             No match requests currently =( 
@@ -32,6 +34,7 @@
                 {% for user in matched_list %}
                   {{user.first_name }} 
                   {{user.last_name }} <br>
+                  {{user}} <br>
                 {% endfor %}
             {% else %}
             No match requests currently =( 

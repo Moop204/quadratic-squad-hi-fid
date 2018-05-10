@@ -7,20 +7,20 @@
 	</head>
 	<body>
 	{% block content %}
-		<form action="dashboard/" method="POST">
+		<form  method="POST">
 			{% csrf_token %}
-			<button type="submit">Back to Dashboard</button>
+			<button type="submit" name="return">Back to Dashboard</button>
 		</form>
             </br>
             </br>
-		<form action="dashboard/" method="POST">
+		<form method="POST">
 			{% csrf_token %}
 			{{ form.as_ul }} 
-			<button type="submit">Save Change</button>
+			<button type="submit" name="save">Save Change</button>
 		</form>
-		<form action="dashboard/" method="POST">
+		<form method="POST">
 			{% csrf_token %}
-			<button type="submit">Discard Changes</button>
+			<button type="submit" name="discard">Discard Changes</button>
 		</form>
 	{% endblock %}
 	</body>

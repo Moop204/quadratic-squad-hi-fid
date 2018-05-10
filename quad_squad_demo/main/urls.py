@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index_login, name='login'),
     path('login/', views.index_login, name='login'),
     path('dashboard/', views.index_dashboard, name='dashboard'),
     path('match/', views.index_match, name='match'),
@@ -12,9 +11,15 @@ urlpatterns = [
     path('<int:text_id>', views.textbook_detailed, name='textbook'),
     path('<int:user_id>/', views.specific_index, name='specific_profile'),
     path('edit/', views.index_user_profile, name='user_profile'),
+    path('dashboard/', views.index_user_profile, name='user_profile'),
+    path('find/', views.match_find, name='find'),
 ]
 urlpatterns += [   
-    path('user/edit/', views.main_profile, name='edit'),
-    path('sign_up/', views.create_account, name='sign_up'),
+    path('user/edit/', views.index_user_profile, name='edit'),
+    path('login/sign_up/', views.create_account, name='sign_up'), #How do we add urls
+    path('match/', views.index_match, name='return_match'),
+    path('../dashboard/', views.index_dashboard, name='return_dashboard'),
+    path('../../dashboard/', views.index_dashboard, name='rreturn_dashboard'),
+ 
 ]
 

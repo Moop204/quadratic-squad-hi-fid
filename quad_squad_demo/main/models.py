@@ -22,7 +22,7 @@ class ExtUser(User):
     description = models.CharField(max_length=300)   
     
     def __str__(self):
-        return self.first_name + self.last_name     
+        return self.first_name + " " + self.last_name     
 
 class Textbook(models.Model):
     title = models.CharField(max_length=20) 

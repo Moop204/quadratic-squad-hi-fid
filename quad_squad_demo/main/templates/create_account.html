@@ -2,14 +2,12 @@
 
 {% block content %}
 	<h2>Account Creation</h2>
-	<form>
+	<form method="POST">
 		{% csrf_token %}
 		{{ form.as_ul }}
-
 		<br><br>
-	    <button type="submit" name="submit" method="POST">Create Account</button>
+	    <button type="submit" name="create" >Create Account</button>
 	</form>
 	    <button type="button" value="Reset" onclick="window.location='/'";>Cancel</button>
-
 {% endblock content %}
 

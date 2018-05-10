@@ -19,8 +19,10 @@ from django.conf.urls import include
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', include('main.urls')),
+#    path('admin/', admin.site.urls),
+    path('', include('main.urls')),
+    #path('dashboard/',  include('main.urls')),
+
 ]
 
 urlpatterns += [

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<body>
+	{% block content %}
+
         <h1>Find Matches</h1>
-		<form action="dashboard">
-			<button type="submit">Back to Dashboard</button>
+		<form method="POST">
+			{% csrf_token %}
+			<button type="submit" name="return">Back to Match</button>
 		</form>
-		<form>
+		<form method="POST">
+			{% csrf_token %}
 			<button type="submit">Find matches (clicking on this should create a match preferences popup)</button>
 		</form>
         <div>
@@ -22,5 +26,7 @@
                 <button type="button">Reject</button>
             </p>
         </div>
+	{% endblock content %}
+
 	</body>
 </html>

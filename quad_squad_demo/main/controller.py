@@ -1,4 +1,5 @@
-from .models import ExtUser, Degree
+from .models import ExtUser, Degree, Matches
+from django.contrib.auth import authenticate, login
 
 # queries involving user
 class userQueries():
@@ -58,9 +59,7 @@ class matchMaker:
     # compatibility is currently determined via a degree comparison
     def findMatches(user_id):
         UserDegree = ExtUser.objects.filter(id=user_id).first().degree
-        print(UserDegree)
         result = ExtUser.objects.filter(degree = UserDegree).all()
-        print(result)
         return result
 
     # given a user id, returns a list of other users who are matched to the current user
@@ -87,7 +86,9 @@ class matchMaker:
         for match in matches:
             curr = ExtUser.objects.filter(id = match.sender).first()
             result.append(curr)
-        return result
+        print("matches")
+        print(matches)
+        return matches#result
 
     # given two user ids (first is sender, second is receiver), makes a match request from the first user to the second
     def makeMatchRequest(user1_id, user2_id):
