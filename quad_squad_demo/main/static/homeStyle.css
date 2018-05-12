@@ -20,7 +20,7 @@ input:focus{ /*doesn't work*/
 }
 
 form{
-	font-weight: normal;
+	font-weight: bold;
 }
 
 button{
@@ -30,8 +30,4 @@ button{
 button:hover{
 	border: 2px solid orange;
 	background-color: yellow;
-}
-
-h2{
-	
 }
