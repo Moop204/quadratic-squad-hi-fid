@@ -1,13 +1,15 @@
 {% extends "base_unlogged.html" %}
 
 {% block content %}
+	<link href="../../static/style.css" rel="stylesheet" type="text/css"/>
     <form method="POST">
 	{% csrf_token %}
-	{{form.as_ul}}  
+	{{form.as_p}}
 	<button type="submit" name="form_login" value="login">Login</button>
 	</form>
     <form method="POST">
 	{% csrf_token %}
 	<button type="submit" name="form_create" value="create">Create Account</button>
+	</form>
 {% endblock content %}
 

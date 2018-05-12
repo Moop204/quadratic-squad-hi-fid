@@ -1,0 +1,35 @@
+
+h1{
+	color: red;
+	text-decoration: none;
+	font-family: calibri-light;
+	font-size: 55px;
+	margin: 25px
+}
+
+body{
+	background-color: rgb(230, 230, 230);
+	margin: 15px;
+}
+
+a:link, visited{
+	text-decoration: none;
+	color: red;
+}
+a:hover, active{
+	text-decoration: none;
+	background-color: rgb(250, 80, 250);
+}
+
+input[type=text]:focus{
+	outline: 2px, solid, pink;
+}
+
+form{
+	font-weight: bold;
+}
+
+button{
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 153, 51);
+}
