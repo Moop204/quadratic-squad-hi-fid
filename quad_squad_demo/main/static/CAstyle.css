@@ -15,14 +15,13 @@ a h1:hover{
 	color: white;
 	background-color: red;
 }
-
 body{
 	margin: 15px;
 }
 
 form{
-	font-weight: bold;
-	text-align: center;
+	font-weight: normal;
+	text-align: left;
 }
 
 button{

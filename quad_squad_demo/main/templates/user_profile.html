@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
+	<link rel="stylesheet" href="{% static 'style.css' %}" type="text/css"/>
 	<head>
 		<a href="dashboard">
 			<h1>ComGrads</h1>
@@ -15,7 +17,7 @@
             </br>
 		<form method="POST">
 			{% csrf_token %}
-			{{ form.as_ul }} 
+			{{ form.as_p }}
 			<button type="submit" name="save">Save Change</button>
 		</form>
 		<form method="POST">

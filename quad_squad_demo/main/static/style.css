@@ -3,35 +3,44 @@ h1{
 	color: red;
 	font-family: calibri-light;
 	font-size: 55px;
-	margin: 25px
+	margin: 25px;
+	display: inline;
 }
 
 a{
 	text-decoration: none;
 }
 
-body{
-	background-color: rgb(230, 230, 230);
-	margin: 15px;
+a h1:hover{
+	opacity: 0.5;
 }
 
-input:focus{ /*doesn't work*/
-	outline: 2px, solid, pink;
+.HDR{
+	background-color: rgb(102, 217, 255);
+}
+
+body{
+	margin: 15px;
 }
 
 form{
 	font-weight: normal;
+	float: right;
+	display: flex;
+	overflow: hidden;
+	padding: 2px 25px;
 }
 
 button{
-	background-color: white;
+	width: 100px;
+	height: 60px;
+	border: 0px;
+	border-radius: 15px;
+	text-decoration: none;
+	background-color: orange;
 }
 
 button:hover{
-	border: 2px solid orange;
-	background-color: yellow;
+	border: 2px solid yellow;
 }
 
-h2{
-	
-}

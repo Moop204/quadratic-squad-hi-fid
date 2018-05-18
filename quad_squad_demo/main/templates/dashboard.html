@@ -12,36 +12,11 @@
             Bio: <br>
             {{ description }} desc <--
         </div>
-
         <div>
-            name: john smith<br>
-            university: UNSW<br>
+            <!--name: john smith<br>-->
+            <!--university: UNSW<br>-->
             (rest of details here)<br>
         </div>
-		<form method='POST'>
-			{% csrf_token %}
-			<button type="submit" name="edit">Edit Profile</button>
-		</form>
-		<br>
-		<form method='POST'>
-			{% csrf_token %}
-			<button type="submit" name="match">Matches</button>
-		</form>
-		<br>
-		<form method='POST'>
-			{% csrf_token %}
-			<button type="submit" name="meetup">Meetups</button>
-		</form>
-		<br>
-		<form method='POST'>
-			{% csrf_token %}
-			<button type="submit" name="message">Messages</button>
-		</form>
-		<br>
-		<form method='POST'>
-			{% csrf_token %}
-			<button type="submit" name="textbook">Textbooks</button>
-		</form>
 		<br>
 		<br>
         {% endblock content %}
