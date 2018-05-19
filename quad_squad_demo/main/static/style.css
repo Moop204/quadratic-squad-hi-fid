@@ -12,11 +12,12 @@ a{
 }
 
 a h1:hover{
-	opacity: 0.5;
+	opacity: 0.8;
 }
 
 .HDR{
-	background-color: rgb(102, 217, 255);
+	padding: 5px;
+	background-color: rgb(50, 50, 50);
 }
 
 body{
