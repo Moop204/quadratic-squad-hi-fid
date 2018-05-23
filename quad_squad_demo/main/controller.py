@@ -1,4 +1,4 @@
-from .models import ExtUser, Degree, Matches
+from .models import *
 from django.contrib.auth import authenticate, login
 
 # queries involving user

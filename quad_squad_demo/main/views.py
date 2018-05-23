@@ -1,20 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .controller import userQueries, loginQueries, matchMaker
-from .forms import loginForm, createAccountForm, textbookSearchForm, createAccountForm, editAccountForm
-from .models import *#ExtUser, Degree #<<--needed???
+from django.contrib.auth.forms import AuthenticationForm 
+from .forms import *
+from .models import *
 from django.contrib import messages
 
 @login_required(redirect_field_name='login')
 def index_dashboard(request):
-    id = request.user.id
-    c_user = userQueries.findUser(id)
-    name = c_user.first_name + " " + c_user.last_name
-    description = c_user.description + "HI DEREEE" 
-    degree = userQueries.findUserDegree(id) # currently not working as intended
-    print("DIS IZ DAZBOARD")
-    print(description)
+    user = request.user
     if request.method == 'POST' and 'edit' in request.POST:
         return redirect('edit')
     elif request.method == 'POST' and 'meetup' in request.POST:
@@ -25,59 +21,60 @@ def index_dashboard(request):
         return redirect('message')
     elif request.method == 'POST' and 'textbook' in request.POST:
         return redirect('textbook')
-    return render(request, 'dashboard.html', {'name':name}, {'description':description},)# {'degree':degree})
+    return render(request, 'dashboard.html', {'name':user.first_name}, {'description':user.description},)
 
 #base login page
 def index_login(request):
     # build form
     if request.method == 'POST':
-        form = loginForm(request.POST)
+        form = AuthenticationForm(request=request, data=request.POST)
     else:
-        form = loginForm()
+        form = AuthenticationForm()
+        return render(request, 'home.html', {'form':form})
  
     #login was chosen, authenticate credentials
-    if request.method == 'POST' and 'form_login' in request.POST:
-        if loginQueries.authLogin(request):
+    if 'form_login' in request.POST and form.is_valid():
+        in_username = form.cleaned_data['username']
+        in_password = form.cleaned_data['password']
+        print(in_username)
+        print(in_password)
+        user = authenticate(request, username=in_username, password=in_password)
+        if user is not None:
+            print(in_username)
+            print(in_password)
+            login(request, user)
             return redirect('dashboard')
         else:
             return redirect('login')
 
     # create account was chosen, redirect to page  
-    elif request.method == 'POST' and 'form_create' in request.POST:
-        form = createAccountForm()
+    elif 'form_create' in request.POST:
         return redirect('sign_up')
-    # render page
-    else:
-        form = loginForm()
-        return render( request, 'home.html', {'form':form})
+
+    # some kinda error if it ever gets to here
+    return redirect('login')
 
 # create account page
 def create_account(request):
     # build form 
     if request.method == 'POST':
-        form = createAccountForm(request.POST)
+        form = CreateForm(request.POST)
     else:
-        form = createAccountForm()
+        form = CreateForm()
+        return render(request, 'create_account.html', {'form':form})
 
     # submit account details, redirect to dashboard  
-    if request.method == 'POST' and 'create' in request.POST and createAccountForm(request.POST).is_valid(): 
-        in_dob = request.POST['dob']
-        in_degree = request.POST['degree']
-        in_email = request.POST['email']
-        in_description = request.POST['description']
-        in_password = request.POST['password']
-        in_first_name = request.POST['first_name']
-        in_last_name = request.POST['last_name']
-        in_username = request.POST['username']
-        userQueries.addUser(in_dob, in_degree, in_email, in_description, in_password, in_username, in_first_name, in_last_name)
-        if loginQueries.authLogin(request):
-            return redirect('return_dashboard')
+    if 'create' in request.POST:
+        print(form.data)
+        if (form.is_valid()):
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')
         else:
-            return redirect('login')
-    #elif request.method == 'POST' and 'create' in request.POST:
-    #    print("u dun messed up")
-    else:
-        return render(request, 'create_account.html', {'form':form})
+            return render(request, 'create_account.html', {'form':form})
+
+    # some kinda error if it ever gets to here
+    return redirect('login')
 
 # main match page
 def index_match(request):
@@ -142,7 +139,7 @@ def index_user_profile(request):
     return render(request, 'user_profile.html', {'form': form},) 
 
 # viewing other user's page
-def specific_index(request, user_id):
+def specific_user(request, user_id):
     user = User.objects.filter(id=user_id).first() # bad style, move this into controller later
     return render(request, 'specific_profile.html', {'user': user}, ) 
 

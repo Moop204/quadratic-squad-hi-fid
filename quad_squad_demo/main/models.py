@@ -1,29 +1,39 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
  
 # Create your models here.
 class University(models.Model):
-    name = models.CharField(max_length=20) 
-    location = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
-    
-class Degree(models.Model):
-    name = models.CharField(max_length=20) 
+
+class Course(models.Model):
+    name = models.CharField(max_length=20)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
-
-class ExtUser(User):
+class ExtUser(AbstractUser):
     dob = models.DateField(help_text='Format yyyy-mm-dd') 
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
-    description = models.CharField(max_length=300)   
+    description = models.CharField(max_length=300)
     
     def __str__(self):
-        return self.first_name + " " + self.last_name     
+        return self.first_name + " " + self.last_name
 
+class Enrolment(models.Model):
+    user = models.ForeignKey(ExtUser, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+class Matches(models.Model):
+    sender = models.ForeignKey(ExtUser, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(ExtUser, related_name='receiver', on_delete=models.CASCADE)
+    MATCH_STATUS=(
+        ('p','Pending'),
+        ('a','Accepted'),
+    )
+    status = models.CharField(max_length=1, choices=MATCH_STATUS, help_text='Matches')
+
+class comment():
+    '''
 class Textbook(models.Model):
     title = models.CharField(max_length=20) 
     author= models.CharField(max_length=20) 
@@ -44,15 +54,6 @@ class Message(models.Model):
     def __str__(self):
         return self.textFile
                    
-class Matches(models.Model):
-    sender = models.ForeignKey(ExtUser, related_name='sender', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(ExtUser, related_name='receiver', on_delete=models.CASCADE)
-    MATCH_STATUS=(
-        ('p','Pending'),
-        ('a','Accepted'),
-    )
-    status = models.CharField(max_length=1, choices=MATCH_STATUS, blank=False, help_text='Matches')
-
 class Pending_Meetup(models.Model):
     host = models.ForeignKey(ExtUser, related_name='host', on_delete=models.CASCADE)
     guest = models.ForeignKey(ExtUser, related_name='guest',  on_delete=models.CASCADE)
@@ -60,6 +61,5 @@ class Pending_Meetup(models.Model):
     location = models.CharField(max_length=20)
     time = models.DateTimeField('')  
     date = models.DateTimeField('') 
-    description = models.CharField(max_length=300) 
-
-
+    description = models.CharField(max_length=300)
+'''
