@@ -7,6 +7,7 @@
 	<form method="POST">
 		{% csrf_token %}
 		{{ form.as_p }}
+        {{ enrolments.as_p }}
 		<br><br>
 	    <button type="submit" name="create" >Create Account</button>
 	</form>

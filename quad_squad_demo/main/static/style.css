@@ -28,7 +28,7 @@ body{
 
 form{
 	font-weight: normal;
-	float: right;
+	float: left;
 	display: flex;
 	overflow: hidden;
 	padding: 2px 25px;

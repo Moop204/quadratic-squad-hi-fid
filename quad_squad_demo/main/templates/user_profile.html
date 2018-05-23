@@ -1,27 +1,10 @@
-{% extends "base_logged.html"%}
+{% extends "base_logged.html" %}
 {% load staticfiles %}
-	<head>
-		<a href="dashboard">
-			<h1>ComGrads</h1>
-		</a>
-	</head>
-	<body>
-	{% block content %}
-		<form  method="POST">
-			{% csrf_token %}
-			<button type="submit" name="return">Back to Dashboard</button>
-		</form>
-            </br>
-            </br>
-		<form method="POST">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<button type="submit" name="save">Save Change</button>
-		</form>
-		<form method="POST">
-			{% csrf_token %}
-			<button type="submit" name="discard">Discard Changes</button>
-		</form>
-	{% endblock %}
-	</body>
-</html>
+{% block content %}
+    <link href="{% static CAstyle.css %}" rel="stylesheet" type="text/css"/>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="return" value="return">Submit Changes</button>
+    </form>
+{% endblock content %}

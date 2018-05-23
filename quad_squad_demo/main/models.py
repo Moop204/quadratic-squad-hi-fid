@@ -12,6 +12,9 @@ class Course(models.Model):
     name = models.CharField(max_length=20)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class ExtUser(AbstractUser):
     dob = models.DateField(help_text='Format yyyy-mm-dd') 
     description = models.CharField(max_length=300)
@@ -21,7 +24,11 @@ class ExtUser(AbstractUser):
 
 class Enrolment(models.Model):
     user = models.ForeignKey(ExtUser, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True)
+
+    def __str__(self):
+        name = (Course.objects.filter(id=course)).name
+        return user + "enrolled in " + name
 
 class Matches(models.Model):
     sender = models.ForeignKey(ExtUser, related_name='sender', on_delete=models.CASCADE)

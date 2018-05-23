@@ -4,23 +4,29 @@
 	<head>
 		<link rel="stylesheet" href="{% static 'style.css' %}" type="text/css"/>
 		<div class="HDR">
-			<a href="/../dashboard/">
+			<a href="{% url 'dashboard' %}">
 				<h1>ComGrads</h1>
 			</a>
-			<form method='POST'>
-				{% csrf_token %}
-				<button type="submit" name="return">Profile</button>
-				<button type="submit" name="match">Matches</button>
-				<button type="submit" name="meetup">Meetups</button>
-				<button type="submit" name="message">Messages</button>
-				<button type="submit" name="textbook">Textbooks</button>
-			</form>
+            <a href="{% url 'edit_profile' %}">
+                <button>Profile</button>
+            </a>
+            <a href="{% url 'match' %}">
+                <button>Matches</button>
+            </a>
+            <a href="{% url 'meetup' %}">
+                <button>Meetups</button>
+            </a>
+            <a href="{% url 'message' %}">
+                <button>Messages</button>
+            </a>
+            <a href="{% url 'textbook' %}">
+                <button>Textbooks</button>
+            </a>
 		</div>
 	</head>
 	<body>
-    <hr> <br>
+    <br>
 	{% block content %}
 	{% endblock %}
 	</body>
-    <hr> 
 </html>
