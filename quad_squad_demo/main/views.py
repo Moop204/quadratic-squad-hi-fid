@@ -86,6 +86,7 @@ def create_account(request):
 # editing profile page
 @login_required(redirect_field_name='login')
 def edit_profile(request):
+    # build forms
     EnrolmentFormSet = modelformset_factory(Enrolment, fields=('course',), extra=4, can_delete=True)
     user = get_user(request)
     if request.method == 'POST':
@@ -93,6 +94,7 @@ def edit_profile(request):
         form2 = EnrolmentFormSet(request.POST, request.FILES)
         if (form.is_valid() and form2.is_valid()):
             form.save()
+            # formset data has to be saved separately
             new_instances = form2.save(commit=False)
             for f in form2.deleted_objects:
                 f.delete()
@@ -102,6 +104,7 @@ def edit_profile(request):
                     new_instance.save()
                 except:
                     pass
+
             return redirect('dashboard')
         else:
             return render(request, 'user_profile.html', {'form':form, 'form2':form2})
