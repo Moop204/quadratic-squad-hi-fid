@@ -116,20 +116,37 @@ def edit_profile(request):
     # some kinda error if it ever gets to here
     return redirect('login')
 
+# viewing other user's page
+@login_required(redirect_field_name='login')
+def specific_user(request, user_id):
+    specific = ExtUser.objects.filter(id=user_id).first()
+    if (request.method == "POST"):
+        user = get_user(request)
+        if (specific is not user):
+            match = Matches(sender=user, receiver=specific, status='p')
+            try:
+                match.save()
+            except:
+                pass
+        return redirect('dashboard')
+    return render(request, 'specific_profile.html', {'user':specific})
 
 # main match page
+@login_required(redirect_field_name='login')
 def index_match(request):
-    matchedList = {}
-    receivedList = {}
-    if request.method == "POST" and 'find' in request.POST:  
-        return redirect('find') 
-    elif request.method == "POST" and 'return' in request.POST:  
-        return redirect('dashboard') 
-    else:
-        messages.info(request, 'Find your match') 
-    return render(request, 'match.html', {'matched_list':matchedList}, {'received_list':receivedList}) 
-        
-from django.shortcuts import render
+    user = get_user(request)
+    received_requests = Matches.objects.filter(status='p').filter(receiver=user).all()
+    sent_requests = Matches.objects.filter(status='p').filter(sender=user).all()
+    matched_list = Matches.objects.filter(status='a').filter(sender=user).all() | Matches.objects.filter(status='a').filter(receiver=user).all()
+    print(received_requests)
+    print(sent_requests)
+    print(matched_list)
+    return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list})
+
+### anything below is undone
+###
+###
+###
 
 # main meetup page
 def index_meetup(request):
@@ -157,9 +174,4 @@ def index_textbook(request):
 # specific textbook page
 def textbook_detailed(request):
     return render(request, 'textbook_individual.html') 
-
-# viewing other user's page
-def specific_user(request, user_id):
-    user = User.objects.filter(id=user_id).first() # bad style, move this into controller later
-    return render(request, 'specific_profile.html', {'user': user}, ) 
 

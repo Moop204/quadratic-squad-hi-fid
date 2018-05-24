@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
  
 # Create your models here.
 class University(models.Model):
@@ -20,7 +21,7 @@ class ExtUser(AbstractUser):
     description = models.CharField(max_length=300)
     
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return reverse('specific_profile', args=(self.id,))
 
 class Enrolment(models.Model):
     user = models.ForeignKey(ExtUser, on_delete=models.CASCADE)

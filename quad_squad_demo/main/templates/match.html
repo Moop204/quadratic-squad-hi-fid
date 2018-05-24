@@ -1,11 +1,12 @@
 {% extends "base_logged.html"%}
 {% load staticfiles %}
         {% block content %}
+        
 		<div>
             <h2>Match Requests</h2>
-            {% if received_list %}
-                {% for user in match_requests %}
-                  {{user}} <br>
+            {% if received_requests %}
+                {% for req in received_requests %}
+                  {{ req.sender }} <br>
                 {% endfor %}
             {% else %}
             You have no match requests.
@@ -16,9 +17,7 @@
             <h2>Matches</h2>
             {% if matched_list %}
                 {% for user in matched_list %}
-                  {{user.first_name }} 
-                  {{user.last_name }} <br>
-                  {{user}} <br>
+                  {{ user }} <br>
                 {% endfor %}
             {% else %}
             No matches.
@@ -26,13 +25,15 @@
         </div>
 
 		<div>
-            <h2>Pending Requests</h2>
-            {% if pending_list %}
-                {% for user in match_requests %}
-                  USERRR 
+            <h2>Pending</h2>
+            {% if sent_requests %}
+                {% for req in sent_requests %}
+                <a href={{ req.receiver }}>
+                    {{ req.receiver.first_name }} {{ req.receiver.last_name }}
+                </a> <br>
                 {% endfor %}
             {% else %}
-            No match requests currently =( 
+            You have sent no match requests.
             {% endif %}
         </div>
         {% endblock content %}
