@@ -48,4 +48,10 @@ button:hover{
 	border: 2px solid rgb(255, 100, 150);
 }
 
+select{
+	width: 95%;
+	padding: 3px;
+	border: 0px;
+	background-color: rgb(200, 200, 200);
+}
 
