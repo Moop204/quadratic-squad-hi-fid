@@ -175,7 +175,6 @@ def index_meetup(request):
 # main message page
 @login_required(redirect_field_name='login')
 def index_message(request):
-    print("Message")
     if (request.method == "POST"):
         form = MessageForm(request.POST)
     else:
@@ -187,12 +186,7 @@ def index_message(request):
         #msg = MessageForm(request.POST)
         #message = msg.clean_data()
         new_message=form.cleaned_data['message']
-        print(new_message)
-        print(message[0])
         message[0][1].append([0, new_message], )
-    else:
-        print(request.POST)
-    print(message)
 
     return render(request, 'message.html',
         {
