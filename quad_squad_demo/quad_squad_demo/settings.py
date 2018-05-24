@@ -103,6 +103,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # custom user model
 AUTH_USER_MODEL = 'main.ExtUser'
 
+# redirects
+LOGIN_URL='/login/'
+LOGIN_REDIRECT_URL='/login/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 

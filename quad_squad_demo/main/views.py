@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, get_user
+from django.contrib.auth import authenticate, login, get_user, logout
 from .controller import userQueries, loginQueries, matchMaker
 from django.contrib.auth.forms import AuthenticationForm 
 from .forms import *
@@ -81,6 +81,11 @@ def create_account(request):
             return render(request, 'create_account.html', {'form':form, 'enrolments':form2})
 
     # some kinda error if it ever gets to here
+    return redirect('login')
+
+@login_required(redirect_field_name='login')
+def index_logout(request):
+    logout(request)
     return redirect('login')
 
 # editing profile page
