@@ -3,10 +3,12 @@
         {% block content %}
         
 		<div>
-            <h2>Match Requests</h2>
+            <h3>Match Requests</h3>
             {% if received_requests %}
-                {% for req in received_requests %}
-                  {{ req.sender }} <br>
+                {% for sender in received_requests %}
+                <a href={{ sender }}>
+                    {{ sender.first_name }} {{ sender.last_name }}
+                </a> <br>
                 {% endfor %}
             {% else %}
             You have no match requests.
@@ -14,10 +16,12 @@
         </div>
 
         <div>
-            <h2>Matches</h2>
+            <h3>Matches</h3>
             {% if matched_list %}
-                {% for user in matched_list %}
-                  {{ user }} <br>
+                {% for other in matched_list %}
+                <a href={{ other }}>
+                    {{ other.first_name }} {{ other.last_name }}
+                </a> <br>
                 {% endfor %}
             {% else %}
             No matches.
@@ -25,11 +29,11 @@
         </div>
 
 		<div>
-            <h2>Pending</h2>
+            <h3>Pending</h3>
             {% if sent_requests %}
-                {% for req in sent_requests %}
-                <a href={{ req.receiver }}>
-                    {{ req.receiver.first_name }} {{ req.receiver.last_name }}
+                {% for receiver in sent_requests %}
+                <a href={{ receiver }}>
+                    {{ receiver.first_name }} {{ receiver.last_name }}
                 </a> <br>
                 {% endfor %}
             {% else %}

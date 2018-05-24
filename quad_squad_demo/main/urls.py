@@ -6,6 +6,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/login/')),
     path('login/', views.index_login, name='login'),
     path('login/sign_up/', views.create_account, name='sign_up'),
+    path('logout/', views.index_logout, name='logout'),
     path('dashboard/', views.index_dashboard, name='dashboard'),
     path('edit/', views.edit_profile, name='edit_profile'),   
     path('user/<int:user_id>', views.specific_user, name='specific_profile'), 

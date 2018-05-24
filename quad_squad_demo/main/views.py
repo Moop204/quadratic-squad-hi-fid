@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, get_user
+from django.contrib.auth import authenticate, login, get_user, logout
 from .controller import userQueries, loginQueries, matchMaker
 from django.contrib.auth.forms import AuthenticationForm 
 from .forms import *
@@ -83,6 +83,11 @@ def create_account(request):
     # some kinda error if it ever gets to here
     return redirect('login')
 
+@login_required(redirect_field_name='login')
+def index_logout(request):
+    logout(request)
+    return redirect('login')
+
 # editing profile page
 @login_required(redirect_field_name='login')
 def edit_profile(request):
@@ -122,12 +127,22 @@ def specific_user(request, user_id):
     specific = ExtUser.objects.filter(id=user_id).first()
     if (request.method == "POST"):
         user = get_user(request)
-        if (specific is not user):
-            match = Matches(sender=user, receiver=specific, status='p')
-            try:
-                match.save()
-            except:
-                pass
+        if (specific != user):
+            otherWay = Matches.objects.filter(receiver=user).filter(sender=specific).first()
+            if (otherWay is not None):
+                if (otherWay.status == 'a'):
+                    # match already exists the other way, do nothing
+                    pass
+                else:
+                    # there is a match request the other way, accept it
+                    otherWay.status = 'a'
+                    otherWay.save()
+            else:
+                match = Matches(sender=user, receiver=specific, status='p')
+                try:
+                    match.save()
+                except:
+                    pass
         return redirect('dashboard')
     return render(request, 'specific_profile.html', {'user':specific})
 
@@ -135,12 +150,17 @@ def specific_user(request, user_id):
 @login_required(redirect_field_name='login')
 def index_match(request):
     user = get_user(request)
-    received_requests = Matches.objects.filter(status='p').filter(receiver=user).all()
-    sent_requests = Matches.objects.filter(status='p').filter(sender=user).all()
-    matched_list = Matches.objects.filter(status='a').filter(sender=user).all() | Matches.objects.filter(status='a').filter(receiver=user).all()
-    print(received_requests)
-    print(sent_requests)
-    print(matched_list)
+    received_requests = []
+    sent_requests = []
+    matched_list = []
+    for received in Matches.objects.filter(status='p').filter(receiver=user).all():
+        received_requests.append(received.sender)
+    for sent in Matches.objects.filter(status='p').filter(sender=user).all():
+        sent_requests.append(sent.receiver)
+    for match in Matches.objects.filter(status='a').filter(sender=user).all():
+        matched_list.append(match.receiver)
+    for match in Matches.objects.filter(status='a').filter(receiver=user).all():
+        matched_list.append(match.sender)
     return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list})
 
 ### anything below is undone

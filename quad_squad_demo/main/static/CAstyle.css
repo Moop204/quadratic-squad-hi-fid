@@ -21,7 +21,8 @@ label{
 }
 
 input{
-	width: 95%;
+	align: middle;
+	width: 200px;
 	border: 1px solid black;
 	padding: 3px 10px;
 }
@@ -48,4 +49,10 @@ button:hover{
 	border: 2px solid rgb(255, 100, 150);
 }
 
+select{
+	width: 200px;
+	padding: 3px;
+	border: 0px;
+	background-color: rgb(200, 200, 200);
+}
 
