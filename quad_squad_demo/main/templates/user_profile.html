@@ -1,10 +1,10 @@
 {% extends "base_logged.html" %}
 {% load staticfiles %}
 {% block content %}
-    <link href="{% static CAstyle.css %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static style.css %}" rel="stylesheet" type="text/css"/>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" name="return" value="return">Submit Changes</button>
+		<button type="submit" name="return" value="return">Submit Changes</button>
     </form>
 {% endblock content %}

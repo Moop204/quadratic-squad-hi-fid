@@ -32,7 +32,7 @@ body{
 form{
 	font-weight: normal;
 	float: left;
-	display: flex;
+	display: block;
 	overflow: hidden;
 	padding: 2px 25px;
 }
@@ -40,9 +40,21 @@ form{
 button{
 	width: 100px;
 	height: 50px;
+	border: 2px solid rgb(0, 152, 255);
+	border-radius: 15px;
+	font-size: 15px;
+	text-decoration: none;
+	background-color: orange;
+	text-align: center;
+}
+
+.fancy{
+	width: 100px;
+	height: 50px;
 	float: right;
 	border: 2px solid rgb(0, 152, 255);
 	border-right-width: 0px;
+	border-radius: 0px;
 	font-size: 15px;
 	text-decoration: none;
 	background-color: orange;
@@ -54,12 +66,21 @@ button:hover{
 	border: 2px solid yellow;
 }
 
-.first{ 
+.fancy.first{ 
 	border-radius: 15px 0 0 15px;
 }
 
-.last{
+.fancy.last{
 	border-right: 2px solid rgb(0, 152, 255);
 	border-radius: 0 15px 15px 0;
 }
 
+input{
+	width: 95%;
+	border: 1px solid black;
+	padding: 3px 10px;
+}
+
+input:focus{
+	border-bottom: 1px solid red;
+}
