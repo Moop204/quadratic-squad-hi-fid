@@ -153,8 +153,34 @@ def index_meetup(request):
     return render(request, 'meetup.html',) 
 
 # main message page
+@login_required(redirect_field_name='login')
 def index_message(request):
-    return render(request, 'message.html',) 
+    print("Message")
+    if (request.method == "POST"):
+        form = MessageForm(request.POST)
+    else:
+        form = MessageForm()
+
+    message = [["Kevin Luong", [[1, "Hey you looked like you needed help with AI"], [1, "I'm free all week to help you out if you're up for it"],]], ]
+    user = "Your Name"
+    if request.method == 'POST' and 'message' in request.POST and form.is_valid():
+        #msg = MessageForm(request.POST)
+        #message = msg.clean_data()
+        new_message=form.cleaned_data['message']
+        print(new_message)
+        print(message[0])
+        message[0][1].append([0, new_message], )
+    else:
+        print(request.POST)
+    print(message)
+
+    return render(request, 'message.html',
+        {
+        'message': message,
+        'user': user,
+        'form':form,    
+        }
+    ) 
 
 # main textbook page
 def match_find(request):
