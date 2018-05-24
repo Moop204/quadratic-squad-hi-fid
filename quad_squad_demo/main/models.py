@@ -26,9 +26,12 @@ class Enrolment(models.Model):
     user = models.ForeignKey(ExtUser, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ['user', 'course']
+
     def __str__(self):
-        name = (Course.objects.filter(id=course)).name
-        return user + "enrolled in " + name
+        name = (Course.objects.filter(id=self.course.id).first()).name
+        return str(self.user) + " enrolled in " + str(name)
 
 class Matches(models.Model):
     sender = models.ForeignKey(ExtUser, related_name='sender', on_delete=models.CASCADE)

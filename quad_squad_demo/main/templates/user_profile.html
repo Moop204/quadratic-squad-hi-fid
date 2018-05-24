@@ -5,6 +5,7 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ form2.as_p }}
 		<button type="submit" name="return" value="return">Submit Changes</button>
     </form>
 {% endblock content %}

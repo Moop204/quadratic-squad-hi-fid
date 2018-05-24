@@ -12,6 +12,10 @@ from django.forms import modelformset_factory, formset_factory
 @login_required(redirect_field_name='login')
 def index_dashboard(request):
     user = get_user(request)
+    enrolments = []
+    for enrolment in Enrolment.objects.filter(user=user).all():
+        enrolments.append(enrolment.course)
+
     if request.method == 'POST' and 'edit' in request.POST:
         return redirect('edit')
     elif request.method == 'POST' and 'meetup' in request.POST:
@@ -22,7 +26,7 @@ def index_dashboard(request):
         return redirect('message')
     elif request.method == 'POST' and 'textbook' in request.POST:
         return redirect('textbook')
-    return render(request, 'dashboard.html', {'name':user.first_name, 'description':user.description})
+    return render(request, 'dashboard.html', {'name':user.first_name, 'description':user.description, 'enrolments':enrolments})
 
 #base login page
 def index_login(request):
@@ -82,17 +86,29 @@ def create_account(request):
 # editing profile page
 @login_required(redirect_field_name='login')
 def edit_profile(request):
+    EnrolmentFormSet = modelformset_factory(Enrolment, fields=('course',), extra=4, can_delete=True)
     user = get_user(request)
     if request.method == 'POST':
         form = AccountForm(request.POST, instance=user)
-        if (form.is_valid()):
+        form2 = EnrolmentFormSet(request.POST, request.FILES)
+        if (form.is_valid() and form2.is_valid()):
             form.save()
+            new_instances = form2.save(commit=False)
+            for f in form2.deleted_objects:
+                f.delete()
+            for new_instance in new_instances:
+                new_instance.user = user
+                try:
+                    new_instance.save()
+                except:
+                    pass
             return redirect('dashboard')
         else:
-            return render(request, 'user_profile.html', {'form':form})
+            return render(request, 'user_profile.html', {'form':form, 'form2':form2})
     else:
         form = AccountForm(instance=user)
-        return render(request, 'user_profile.html', {'form':form})
+        form2 = EnrolmentFormSet(queryset=Enrolment.objects.filter(user=user).all())
+        return render(request, 'user_profile.html', {'form':form, 'form2':form2})
 
     # some kinda error if it ever gets to here
     return redirect('login')
