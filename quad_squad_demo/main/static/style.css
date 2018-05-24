@@ -5,7 +5,6 @@ h1{
 	font-size: 55px;
 	margin: 25px;
 	display: inline;
-	border: 2px solid yellow;
 }
 
 a{
@@ -22,6 +21,10 @@ a h1:hover{
 	background-color: rgb(50, 50, 50);
 }
 
+.HDR a h1{
+	-webkit-text-stroke: 1px yellow;
+}
+
 body{
 	margin: 15px;
 }
@@ -36,14 +39,27 @@ form{
 
 button{
 	width: 100px;
-	height: 60px;
-	border: 0px;
-	border-radius: 15px;
+	height: 50px;
+	float: right;
+	border: 2px solid rgb(0, 152, 255);
+	border-right-width: 0px;
+	font-size: 15px;
 	text-decoration: none;
 	background-color: orange;
+	text-align: center;
+	margin-top: 8px;
 }
 
 button:hover{
 	border: 2px solid yellow;
+}
+
+.first{ 
+	border-radius: 15px 0 0 15px;
+}
+
+.last{
+	border-right: 2px solid rgb(0, 152, 255);
+	border-radius: 0 15px 15px 0;
 }
 
