@@ -128,11 +128,21 @@ def specific_user(request, user_id):
     if (request.method == "POST"):
         user = get_user(request)
         if (specific != user):
-            match = Matches(sender=user, receiver=specific, status='p')
-            try:
-                match.save()
-            except:
-                pass
+            otherWay = Matches.objects.filter(receiver=user).filter(sender=specific).first()
+            if (otherWay is not None):
+                if (otherWay.status == 'a'):
+                    # match already exists the other way, do nothing
+                    pass
+                else:
+                    # there is a match request the other way, accept it
+                    otherWay.status = 'a'
+                    otherWay.save()
+            else:
+                match = Matches(sender=user, receiver=specific, status='p')
+                try:
+                    match.save()
+                except:
+                    pass
         return redirect('dashboard')
     return render(request, 'specific_profile.html', {'user':specific})
 
