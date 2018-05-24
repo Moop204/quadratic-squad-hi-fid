@@ -218,11 +218,11 @@ def match_find(request):
 
 # main textbook page
 def index_textbook(request):
-    if request.method == 'POST':
-        form = textbookSearchForm(request.POST)
-    else:
-        form = textbookSearchForm()
-    return render(request, 'textbook.html', {'form':form}) 
+    #if request.method == 'POST':
+    #    form = textbookSearchForm(request.POST)
+    #else:
+    #    form = textbookSearchForm()
+    return render(request, 'textbook.html') 
 
 # specific textbook page
 def textbook_detailed(request):
