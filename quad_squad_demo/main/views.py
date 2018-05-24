@@ -143,7 +143,7 @@ def specific_user(request, user_id):
                     match.save()
                 except:
                     pass
-        return redirect('dashboard')
+        return redirect('match')
     return render(request, 'specific_profile.html', {'user':specific})
 
 # main match page
@@ -153,6 +153,9 @@ def index_match(request):
     received_requests = []
     sent_requests = []
     matched_list = []
+    search_results = []
+
+    # get match results
     for received in Matches.objects.filter(status='p').filter(receiver=user).all():
         received_requests.append(received.sender)
     for sent in Matches.objects.filter(status='p').filter(sender=user).all():
@@ -161,7 +164,22 @@ def index_match(request):
         matched_list.append(match.receiver)
     for match in Matches.objects.filter(status='a').filter(receiver=user).all():
         matched_list.append(match.sender)
-    return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list})
+
+    # get search results
+    if (request.method == "POST"):
+        form = EnrolmentForm(data=request.POST)
+        if (form.is_valid()):
+            course = form.cleaned_data['course']
+            for enrol in Enrolment.objects.filter(course=course).exclude(user=user).all():
+                if (enrol.user in received_requests + sent_requests + matched_list + search_results):
+                    pass
+                else:
+                    print(enrol.user)
+                    search_results.append(enrol.user)
+    else:
+        form = EnrolmentForm()
+
+    return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list, 'form':form, 'search_results':search_results})
 
 ### anything below is undone
 ###

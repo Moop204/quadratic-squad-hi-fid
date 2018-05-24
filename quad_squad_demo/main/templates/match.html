@@ -1,6 +1,18 @@
 {% extends "base_logged.html"%}
 {% load staticfiles %}
         {% block content %}
+        <div>
+            <h3>Matches</h3>
+            {% if matched_list %}
+                {% for other in matched_list %}
+                <a href={{ other }}>
+                    {{ other.first_name }} {{ other.last_name }}
+                </a> <br>
+                {% endfor %}
+            {% else %}
+            You have no matches.
+            {% endif %}
+        </div>
         
 		<div>
             <h3>Match Requests</h3>
@@ -15,19 +27,6 @@
             {% endif %}
         </div>
 
-        <div>
-            <h3>Matches</h3>
-            {% if matched_list %}
-                {% for other in matched_list %}
-                <a href={{ other }}>
-                    {{ other.first_name }} {{ other.last_name }}
-                </a> <br>
-                {% endfor %}
-            {% else %}
-            No matches.
-            {% endif %}
-        </div>
-
 		<div>
             <h3>Pending</h3>
             {% if sent_requests %}
@@ -38,6 +37,25 @@
                 {% endfor %}
             {% else %}
             You have sent no match requests.
+            {% endif %}
+        </div>
+
+		<div>
+            <h3>Search</h3>
+            Choose a course to search <br>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }} <br>
+                <button type="submit" name="search">Search</button> <br>
+            </form>
+            {% if search_results %}
+                {% for result in search_results %}
+                <a href={{ result }}>
+                    {{ result.first_name }} {{ result.last_name }}
+                </a> <br>
+                {% endfor %}
+            {% else %}
+            No results found.
             {% endif %}
         </div>
         {% endblock content %}
