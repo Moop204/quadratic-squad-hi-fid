@@ -24,7 +24,7 @@ class ExtUser(AbstractUser):
 
 class Enrolment(models.Model):
     user = models.ForeignKey(ExtUser, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
         name = (Course.objects.filter(id=course)).name
