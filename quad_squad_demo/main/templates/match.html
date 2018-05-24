@@ -3,7 +3,7 @@
         {% block content %}
         
 		<div>
-            <h2>Match Requests</h2>
+            <h3>Match Requests</h3>
             {% if received_requests %}
                 {% for req in received_requests %}
                   {{ req.sender }} <br>
@@ -14,7 +14,7 @@
         </div>
 
         <div>
-            <h2>Matches</h2>
+            <h3>Matches</h3>
             {% if matched_list %}
                 {% for user in matched_list %}
                   {{ user }} <br>
@@ -25,7 +25,7 @@
         </div>
 
 		<div>
-            <h2>Pending</h2>
+            <h3>Pending</h3>
             {% if sent_requests %}
                 {% for req in sent_requests %}
                 <a href={{ req.receiver }}>
