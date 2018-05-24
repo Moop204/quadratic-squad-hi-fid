@@ -181,11 +181,6 @@ def index_match(request):
 
     return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list, 'form':form, 'search_results':search_results})
 
-### anything below is undone
-###
-###
-###
-
 # main meetup page
 def index_meetup(request):
     return render(request, 'meetup.html',) 

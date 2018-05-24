@@ -3,6 +3,7 @@
         name: {{ user.first_name }} {{ user.last_name }} </br>
         dob: {{ user.dob }} </br>
         description: {{ user.description }} </br>
+        email: {{ user.email }} </br>
         </br>
 		<form method="POST">
 			{% csrf_token %}
