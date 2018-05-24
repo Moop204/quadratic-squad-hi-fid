@@ -1,16 +1,6 @@
 {% extends "base_logged.html"%}
-	<body>
+{% load staticfiles %}
         {% block content %}
-        <h2>Matches</h2>
-		<form method="POST">
-           {% csrf_token %} 
-			<button type="submit" name="return">Back to Dashboard</button>
-		</form>
-		<form method="POST">
-           {% csrf_token %} 
-			<button type="submit" name="find">Find matches</button>
-		</form>
-
 		<div>
             <h2>Match Requests</h2>
             {% if received_list %}
@@ -18,14 +8,8 @@
                   {{user}} <br>
                 {% endfor %}
             {% else %}
-            No match requests currently =( 
+            You have no match requests.
             {% endif %}
-
-            <p>Example: timothy
-                <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
-                <button type="button">Accept</button>
-                <button type="button">Reject</button>
-            </p>
         </div>
 
         <div>
@@ -37,7 +21,7 @@
                   {{user}} <br>
                 {% endfor %}
             {% else %}
-            No match requests currently =( 
+            No matches.
             {% endif %}
         </div>
 
@@ -50,22 +34,5 @@
             {% else %}
             No match requests currently =( 
             {% endif %}
-
-            <p>Example: timothy
-                <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
-                <button type="button">Accept</button>
-                <button type="button">Reject</button>
-            </p>
         </div>
-
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
         {% endblock content %}
-
-	</body>
-</html>

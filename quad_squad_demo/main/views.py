@@ -119,11 +119,8 @@ def edit_profile(request):
 
 # main match page
 def index_match(request):
-    id = request.user.id
-    matchedList = matchMaker.findMatches(id)
-    receivedList = matchMaker.getRequestList(id) # currently bugged
-    print("matchedList")
-    print(matchedList)
+    matchedList = {}
+    receivedList = {}
     if request.method == "POST" and 'find' in request.POST:  
         return redirect('find') 
     elif request.method == "POST" and 'return' in request.POST:  

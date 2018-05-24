@@ -42,6 +42,9 @@ class Matches(models.Model):
     )
     status = models.CharField(max_length=1, choices=MATCH_STATUS, help_text='Matches')
 
+    class Meta:
+        unique_together = ['sender', 'receiver']
+
 class comment():
     '''
 class Textbook(models.Model):
