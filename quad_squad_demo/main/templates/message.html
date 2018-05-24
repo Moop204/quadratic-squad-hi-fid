@@ -3,16 +3,7 @@
 		<form action="dashboard">
 			<button type="submit">Back to Profile</button>
 		</form>
-        <div>
-            <h2>(List of messages here)</h2>
-            <p>Example: kevin<br>
-                kevin: hi my name is kevin<br>
-                john: hi kevin my name is john<br>
-                (textbox here to type up a message)
-                <button type="button">Send</button>
-            </p>
-        </div>
-        
+        <br> <br> <br>
         <div>
         {% for convo in message %}
             <h2>{{convo.0 }}</h2>
