@@ -1,20 +1,20 @@
 {% extends "base_logged.html"%}
-	<body>
 	{% block content %}
-		Textbooks<br><br>
-		<form action="dashboard/" method="GET">
-			<button type="submit">Back to Dashboard</button>
-		</form>
-
-        <form action="textbooks/example_textbook/" method="POST">
+		<h3> Textbooks </h3> <br>
+        <form method="POST">
 			{% csrf_token %}
-			{{ form.as_ul }}
-		    <button type="submit">Find Textbooks</button><br>
-		    This button should search for anything that matches the text that is typed into the search bar and refresh the textbook list accordingly<br>
+			{{ form }}
+		    <button type="submit" name="search">Find Textbooks</button>
+            <br> <br> <br> <br>
         </form>
-BYE BYE
-		<button type="submit">List Textbook for sale</button><br>
-		Button creates a popup for the user to enter information for the textbook giving its name, author, edition(if there is one), condition of textbook ...<br>
+        <div>
+            {% for result in results %}
+                Title: {{result.0}} <br>
+                Author: {{result.1}} <br>
+                Publisher: {{result.2}} <br>
+                Date of Publication: {{result.3}} <br> <br>
+            {% endfor %}
+        </div>
+		<br>
 	{% endblock %}
-	</body>
-</html>
+

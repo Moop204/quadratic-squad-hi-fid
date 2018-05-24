@@ -230,11 +230,20 @@ def match_find(request):
 
 # main textbook page
 def index_textbook(request):
-    #if request.method == 'POST':
-    #    form = textbookSearchForm(request.POST)
-    #else:
-    #    form = textbookSearchForm()
-    return render(request, 'textbook.html') 
+    if request.method == 'POST':
+        form = TextbookSearchForm(request.POST)
+    else:
+        form = TextbookSearchForm()
+    results=[]
+    if request.method == 'POST' and 'search' in request.POST and form.is_valid():
+        query = form.cleaned_data['search']
+        results = [ ['Artificial Intelligence: a Modern Approach, 4th Ed.', 'Stuart Russell and Peter Norvig', 'Prentice Hall', '2009'], ['Prolog Programming for Artificial Intelligence, 4th Ed.', 'Ivan Bratko', 'Pearson', '2013'], ['Artificial Intelligence: a New Synthesis', 'Nils J. Nilsson', 'Morgan Kaufmann', '1998'], ['Vehicles: Experiments in Synthetic Psychology', 'Valentino Braitenberg', 'MIT Press', '1984'],]
+    return render(request, 'textbook.html', 
+        {
+            'form':form,
+            'results':results,
+        }
+    ) 
 
 # specific textbook page
 def textbook_detailed(request):

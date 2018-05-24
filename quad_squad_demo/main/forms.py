@@ -28,21 +28,12 @@ class EnrolmentForm(ModelForm):
 class MessageForm(forms.Form):
     message = forms.CharField(label='Message: ', required = False)
 
-'''
+
 # form for searching textbooks
-class textbookSearchForm(forms.Form):
+class TextbookSearchForm(forms.Form):
     search = forms.CharField(
         label='Search', 
         required=False,
     )
-    degree_filter = forms.ChoiceField(
-        choices = 'dog', 
-        label='Search by Current Course',
-        required=False, 
-    )
 
-    def clean_data(self):
-        cl_data = self.cleaned_data['username']
-        cl_data = self.cleaned_data['password']
-        return cl_data
-'''
+

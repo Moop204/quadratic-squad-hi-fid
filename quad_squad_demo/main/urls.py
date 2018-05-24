@@ -14,6 +14,7 @@ urlpatterns = [
     path('meetup/', views.index_meetup, name='meetup'),
     path('message/', views.index_message, name='message'),
     path('textbook/', views.index_textbook, name='textbook'),
+    path('textbook/search/', views.index_textbook, name='search'),
 ]
 urlpatterns += [   
 
