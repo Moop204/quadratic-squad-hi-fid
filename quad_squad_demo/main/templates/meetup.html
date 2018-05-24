@@ -1,23 +1,32 @@
 {% extends "base_logged.html"%}
-	<body>
+{% block content %} 
 		<form method="POST">
-			<button type="submit" name="return">Back to Profile</button>
+			<button type="submit" name="create_meetup">Create Meetup</button>
 		</form>
-		<form method="POST">
-			<button type="submit" name="create_meetup">Create meetup request (clicking on this should create a popup to enter the meetup details)</button>
-		</form>
-		Calendar<br>
-		(Month: which month you want to look at)<br><br>		
-		(The days within that month that have a meetup request can have a marking on it e.g. M)<br>
-        (this calendar would be synced with the user's google calendar)
+        <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <br> <br> <br>
         <div>
-            <h2>(List of meetup requests here)</h2>
-            <p>Example: timothy<br>
-                (meetup details here, e.g. location, time, etc)<br>
-                <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
-                <button type="button">Accept</button>
-                <button type="button">Reject</button>
-            </p>
+            <h2>Meetup Requests</h2>
+            {% if requests %}
+                {% for request in requests %}
+                <p>
+                    {{ request.0 }}<br>
+                    Location {{request.1}} <br>
+                    Date {{request.2}} <br>
+                    Time {{ request.3 }} <br>
+                    Description {{ request.4 }} <br> <br>      
+                    <form method = 'POST' >     
+                        {% csrf_token %}   
+                        <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
+                        <button type="submit" name="submit" value="accept">Accept</button>
+                        <button type="submit" name="submit" value="reject">Reject</button>
+                    </form>
+                    <br> <br>
+                </p>
+                {% endfor %}
+            {% else %}
+                <p> You currently do not have any meetup requests </p>
+            {% endif %}
         </div>
-	</body>
-</html>
+{% endblock %} 
+

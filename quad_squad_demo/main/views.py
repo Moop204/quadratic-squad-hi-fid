@@ -9,6 +9,8 @@ from .models import *
 from django.contrib import messages
 from django.forms import modelformset_factory, formset_factory
 
+
+
 @login_required(redirect_field_name='login')
 def index_dashboard(request):
     user = get_user(request)
@@ -170,7 +172,17 @@ def index_match(request):
 
 # main meetup page
 def index_meetup(request):
-    return render(request, 'meetup.html',) 
+    #if request.method=='POST':
+    meetup_req = [["Kevin Luong", "Hyde Park", "27/5/2018", "10:30am", "Meet up here for breakfast and then we can discuss the topics you need help with"]]
+    meetup_sen = []
+    if request.method == 'POST' and 'submit' in request.POST:
+        meetup_req = []
+    return render(request, 'meetup.html',
+        {
+        'requests':meetup_req,
+        'sends':meetup_sen,
+        }
+    ) 
 
 # main message page
 @login_required(redirect_field_name='login')
