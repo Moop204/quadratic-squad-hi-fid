@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 from .models import *
 from django.contrib import messages
+from django.forms import modelformset_factory, formset_factory
 
 @login_required(redirect_field_name='login')
 def index_dashboard(request):
@@ -53,28 +54,26 @@ def index_login(request):
 # create account page
 def create_account(request):
     # build form
-    form2 = EnrolmentForm(request.POST)
-    if (form2.is_valid()):
-        if (form2.cleaned_data['course'] == None):
-            print("none selected")
-        else:
-            print(form2.cleaned_data['course'])
-    else:
-        print("invalid form")
-
-    if request.method == 'POST':
+    EnrolmentFormSet = modelformset_factory(Enrolment, fields=('course',), extra=4)
+    if (request.method == "POST"):
         form = CreateForm(request.POST)
+        form2 = EnrolmentFormSet(request.POST, request.FILES)
     else:
         form = CreateForm()
+        form2 = EnrolmentFormSet(queryset=Enrolment.objects.none())
         return render(request, 'create_account.html', {'form':form, 'enrolments':form2})
 
-    # submit account details, redirect to dashboard  
-    if 'create' in request.POST:
-        if (form.is_valid()):
+    # submit account details, redirect to dashboard
+    if (form.is_valid() and form2.is_valid()):
+        if 'create' in request.POST:
             user = form.save()
+            for f in form2:
+                if ('course' in f.cleaned_data):
+                    enrolment = Enrolment(user=user, course=f.cleaned_data['course'])
+                    enrolment.save()
             login(request, user)
             return redirect('dashboard')
-        else:
+    else:
             return render(request, 'create_account.html', {'form':form, 'enrolments':form2})
 
     # some kinda error if it ever gets to here
