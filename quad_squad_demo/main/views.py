@@ -176,7 +176,6 @@ def index_match(request):
                 if (enrol.user in received_requests + sent_requests + matched_list + search_results):
                     pass
                 else:
-                    print(enrol.user)
                     search_results.append(enrol.user)
     else:
         form = EnrolmentForm()
