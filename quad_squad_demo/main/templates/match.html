@@ -45,9 +45,10 @@
             Choose a course to search <br>
             <form method="POST">
                 {% csrf_token %}
-                {{ form }} <br>
+                {{ form }}
                 <button type="submit" name="search">Search</button> <br>
             </form>
+            <br><br><br>
             {% if search_results %}
                 {% for result in search_results %}
                 <a href={{ result }}>

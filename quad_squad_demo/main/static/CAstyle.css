@@ -41,18 +41,25 @@ form{
 }
 
 button{
+	width: 100px;
+	height: 50px;
+	border: 2px solid red;
+	border-radius: 15px;
+	font-size: 15px;
+    float: left;
+	text-decoration: none;
+	background-color: orange;
 	text-align: center;
-	background-color: rgb(150, 100, 200);
 }
 
 button:hover{
-	border: 2px solid rgb(255, 100, 150);
+	border: 2px solid yellow;
 }
 
 select{
 	width: 200px;
 	padding: 3px;
 	border: 0px;
-	background-color: rgb(200, 200, 200);
+	background-color: orange;
 }
 
