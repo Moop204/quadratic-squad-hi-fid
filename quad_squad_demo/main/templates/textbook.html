@@ -5,8 +5,8 @@
 			{% csrf_token %}
 			{{ form }}
 		    <button type="submit" name="search">Find Textbooks</button>
-            <br> <br> <br> <br>
         </form>
+		<br><br><br>
         <div>
             {% for result in results %}
                 Title: {{result.0}} <br>

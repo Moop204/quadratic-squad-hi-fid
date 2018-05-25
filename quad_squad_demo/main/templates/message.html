@@ -7,16 +7,16 @@
             <p>
                 {% for sentence in convo.1 %}
                     {% if sentence.0 == 1 %}
-                        {{convo.0}}: 
+                        {{convo.0}}:
                     {%else%}
-                        {{ user }}
-                    {% endif %}:
-                     {{ sentence.1 }} <br>
+                        {{ user }}:
+                    {% endif %}
+                    	{{ sentence.1 }} <br>
 
                 {% endfor %}
-                 <form name="new_message" method = 'POST'>
+                <form name="new_message" method = 'POST'>
           		{% csrf_token %}
-                {{form}}    
+                {{form}} 
                 <button type="submit" value='send_message'>Send</button>
                 </form> 
             </p>

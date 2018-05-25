@@ -205,8 +205,8 @@ def index_message(request):
     else:
         form = MessageForm()
 
-    message = [["Kevin Luong", [[1, "Hey you looked like you needed help with AI"], [1, "I'm free all week to help you out if you're up for it"],]], ]
-    user = "Your Name"
+    message = [["Alex", [[1, "Hey you looked like you needed help with AI"], [1, "I'm free all week to help you out if you're up for it"],]], ]
+    user = get_user(request).first_name;
     if request.method == 'POST' and 'message' in request.POST and form.is_valid():
         #msg = MessageForm(request.POST)
         #message = msg.clean_data()

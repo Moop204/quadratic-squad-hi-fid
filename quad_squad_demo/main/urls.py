@@ -16,7 +16,4 @@ urlpatterns = [
     path('textbook/', views.index_textbook, name='textbook'),
     path('textbook/search/', views.index_textbook, name='search'),
 ]
-urlpatterns += [   
-
-]
 

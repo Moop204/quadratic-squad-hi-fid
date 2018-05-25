@@ -5,9 +5,9 @@
         <div>
 			<h2>Welcome {{ name }}</h2>
             <h3>Profile Details</h3>
-            Bio: <br>
+            <div class="p"> Bio: </div> <br>
             {{ description }}
-            <br> Courses: <br>
+            <br><br> <div class="p"> Courses: </div> <br>
             {% for enrolment in enrolments %}
                 {{ enrolment }}
             {% endfor %}
