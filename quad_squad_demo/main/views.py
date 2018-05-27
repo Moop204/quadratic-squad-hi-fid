@@ -9,25 +9,12 @@ from .models import *
 from django.contrib import messages
 from django.forms import modelformset_factory, formset_factory
 
-
-
 @login_required(redirect_field_name='login')
 def index_dashboard(request):
     user = get_user(request)
     enrolments = []
     for enrolment in Enrolment.objects.filter(user=user).all():
         enrolments.append(enrolment.course)
-
-    if request.method == 'POST' and 'edit' in request.POST:
-        return redirect('edit')
-    elif request.method == 'POST' and 'meetup' in request.POST:
-        return redirect('meetup')
-    elif request.method == 'POST' and 'match' in request.POST:
-        return redirect('match')
-    elif request.method == 'POST' and 'message' in request.POST:
-        return redirect('message')
-    elif request.method == 'POST' and 'textbook' in request.POST:
-        return redirect('textbook')
     return render(request, 'dashboard.html', {'name':user.first_name, 'description':user.description, 'enrolments':enrolments})
 
 #base login page
@@ -243,8 +230,3 @@ def index_textbook(request):
             'results':results,
         }
     ) 
-
-# specific textbook page
-def textbook_detailed(request):
-    return render(request, 'textbook_individual.html') 
-

@@ -28,7 +28,6 @@ class EnrolmentForm(ModelForm):
 class MessageForm(forms.Form):
     message = forms.CharField(label='Message', required = False)
 
-
 # form for searching textbooks
 class TextbookSearchForm(forms.Form):
     search = forms.CharField(
