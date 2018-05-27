@@ -44,3 +44,12 @@ class Matches(models.Model):
 
     class Meta:
         unique_together = ['sender', 'receiver']
+
+class Pending_Meetup(models.Model):
+    host = models.ForeignKey(ExtUser, related_name='host', on_delete=models.CASCADE,)
+    guest = models.ForeignKey(ExtUser, related_name='guest',  on_delete=models.CASCADE,)
+    location = models.CharField(max_length=20)
+    time = models.TimeField('Time')  
+    date = models.DateField('Date') 
+    description = models.CharField(max_length=300)
+

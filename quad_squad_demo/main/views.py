@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, get_user, logout
-from .controller import userQueries, loginQueries, matchMaker
+from .controller import userQueries, loginQueries, matchMaker, meetupQueries
 from django.contrib.auth.forms import AuthenticationForm 
 from .forms import *
 from .models import *
@@ -15,8 +15,15 @@ def index_dashboard(request):
     enrolments = []
     for enrolment in Enrolment.objects.filter(user=user).all():
         enrolments.append(enrolment.course)
-    return render(request, 'dashboard.html', {'name':user.first_name, 'description':user.description, 'enrolments':enrolments})
-
+    return render(
+        request, 
+        'dashboard.html', 
+        {
+            'name':user.first_name, 
+            'description':user.description, 
+            'enrolments':enrolments
+        }
+    )
 #base login page
 def index_login(request):
     # build form
@@ -24,13 +31,22 @@ def index_login(request):
         form = AuthenticationForm(request=request, data=request.POST)
     else:
         form = AuthenticationForm()
-        return render(request, 'home.html', {'form':form})
- 
+        return render(
+            request, 
+            'home.html', 
+            {
+                'form':form
+            }
+        )
     #login was chosen, authenticate credentials
     if 'form_login' in request.POST and form.is_valid():
         in_username = form.cleaned_data['username']
         in_password = form.cleaned_data['password']
-        user = authenticate(request, username=in_username, password=in_password)
+        user = authenticate(
+            request, 
+            username=in_username, 
+            password=in_password
+        )
         if user is not None:
             login(request, user)
             return redirect('dashboard')
@@ -54,7 +70,14 @@ def create_account(request):
     else:
         form = CreateForm()
         form2 = EnrolmentFormSet(queryset=Enrolment.objects.none())
-        return render(request, 'create_account.html', {'form':form, 'enrolments':form2})
+        return render(
+            request,
+            'create_account.html', 
+            {
+                'form':form, 
+                'enrolments':form2,
+            }
+        )
 
     # submit account details, redirect to dashboard
     if (form.is_valid() and form2.is_valid()):
@@ -67,7 +90,14 @@ def create_account(request):
             login(request, user)
             return redirect('dashboard')
     else:
-            return render(request, 'create_account.html', {'form':form, 'enrolments':form2})
+            return render(
+                request, 
+                'create_account.html', 
+                {
+                    'form':form, 
+                    'enrolments':form2,
+                }
+            )
 
     # some kinda error if it ever gets to here
     return redirect('login')
@@ -101,12 +131,25 @@ def edit_profile(request):
 
             return redirect('dashboard')
         else:
-            return render(request, 'user_profile.html', {'form':form, 'form2':form2})
+            return render(
+                request,
+                'user_profile.html', 
+                {
+                    'form':form, 
+                    'form2':form2,
+                }
+            )
     else:
         form = AccountForm(instance=user)
         form2 = EnrolmentFormSet(queryset=Enrolment.objects.filter(user=user).all())
-        return render(request, 'user_profile.html', {'form':form, 'form2':form2})
-
+        return render(
+            request, 
+            'user_profile.html',
+            {
+                'form':form,
+                'form2':form2,
+            }
+        )
     # some kinda error if it ever gets to here
     return redirect('login')
 
@@ -170,18 +213,65 @@ def index_match(request):
     return render(request, 'match.html', {'received_requests':received_requests, 'sent_requests':sent_requests, 'matched_list':matched_list, 'form':form, 'search_results':search_results})
 
 # main meetup page
+@login_required(redirect_field_name='login')
 def index_meetup(request):
-    #if request.method=='POST':
-    meetup_req = [["Kevin Luong", "Hyde Park", "27/5/2018", "10:30am", "Meet up here for breakfast and then we can discuss the topics you need help with"]]
+    c_user = get_user(request)
+    uid = c_user.id
+    meetup_req = meetupQueries.getRequestList(uid)
     meetup_sen = []
-    if request.method == 'POST' and 'submit' in request.POST:
-        meetup_req = []
+    req=[]
+    for meetup in meetup_req:
+        fn= meetup.host.first_name
+        ln= meetup.host.last_name
+        con = " "
+        seq = (fn, ln)
+        name=con.join(seq)
+        tmp = [meetup, name]
+        req.append(tmp) 
     return render(request, 'meetup.html',
         {
-        'requests':meetup_req,
+        'requests':req,
         'sends':meetup_sen,
         }
     ) 
+
+@login_required(redirect_field_name='login')
+def create_meetup(request):
+    c_user = get_user(request)
+    
+    if (request.method == "POST"):
+        form = MeetupForm(request.POST)
+    else:
+        form = MeetupForm()
+    users = userQueries.allUsers()    
+    error = ""
+    if request.method == 'POST' and 'request_meetup' in request.POST:
+        uid = c_user.id
+        print(form)
+        print(request.POST)
+        if form.is_valid() or True:
+            try:
+                req = Pending_Meetup(
+                    host=c_user, 
+                    guest=form.cleaned_data['guest'],
+                    location=form.cleaned_data['location'],
+                    time=form.cleaned_data['time'],
+                    date=form.cleaned_data['date'],
+                    description = form.cleaned_data['description'],
+                )
+            except:
+                redirect('create_meetup')
+            req.save()
+            return redirect('meetup')
+        else:
+            error = "You have provided invalid data, please use the correct format" 
+    return render(request, 'meetup_make.html', 
+        {
+        'form':form,
+        'users':users,
+        'error':error,
+        }
+    )
 
 # main message page
 @login_required(redirect_field_name='login')
@@ -194,8 +284,6 @@ def index_message(request):
     message = [["Alex", [[1, "Hey you looked like you needed help with AI"], [1, "I'm free all week to help you out if you're up for it"],]], ]
     user = get_user(request).first_name;
     if request.method == 'POST' and 'message' in request.POST and form.is_valid():
-        #msg = MessageForm(request.POST)
-        #message = msg.clean_data()
         new_message=form.cleaned_data['message']
         message[0][1].append([0, new_message], )
 

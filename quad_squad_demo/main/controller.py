@@ -29,8 +29,13 @@ class userQueries():
             dob=dob,
         )
         newUser.user_permissions.add(1)
-        return newUser.save()  
+        return newUser.save()
 
+    # gives all users
+    def allUsers():  
+        users = ExtUser.objects.all()
+        return users
+                
 # queries involved in the logging in process
 class loginQueries():
     # returns whether the credentials given have any corresponding records
@@ -86,9 +91,7 @@ class matchMaker:
         for match in matches:
             curr = ExtUser.objects.filter(id = match.sender).first()
             result.append(curr)
-        print("matches")
-        print(matches)
-        return matches#result
+        return matches
 
     # given two user ids (first is sender, second is receiver), makes a match request from the first user to the second
     def makeMatchRequest(user1_id, user2_id):
@@ -101,4 +104,8 @@ class matchMaker:
         match.status = 'a'
         match.save()
 
-
+class meetupQueries():
+        # given a user id, returns a list of other users who have sent a request to the current user
+    def getRequestList(user_id):
+        meetups = Pending_Meetup.objects.filter(guest=user_id).all()
+        return meetups

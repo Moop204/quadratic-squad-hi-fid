@@ -12,6 +12,7 @@ urlpatterns = [
     path('user/<int:user_id>', views.specific_user, name='specific_profile'), 
     path('match/', views.index_match, name='match'), 
     path('meetup/', views.index_meetup, name='meetup'),
+    path('meetup/create/', views.create_meetup, name='make_meetup'),
     path('message/', views.index_message, name='message'),
     path('textbook/', views.index_textbook, name='textbook'),
 ]

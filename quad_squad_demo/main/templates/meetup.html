@@ -1,20 +1,24 @@
 {% extends "base_logged.html"%}
 {% block content %} 
-		<form method="POST">
-			<button type="submit" name="create_meetup">Create Meetup</button>
-		</form>
-        <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            <br><br>
+            <h2>Calendar</h2>
+            <br> <br>   
+        <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> 
+            <a href="{% url 'make_meetup' %}">
+                <button>Create Meetup</button>
+            </a>
         <br> <br> <br>
         <div>
             <h2>Meetup Requests</h2>
             {% if requests %}
                 {% for request in requests %}
                 <p>
-                    {{ request.0 }}<br>
-                    Location {{request.1}} <br>
-                    Date {{request.2}} <br>
-                    Time {{ request.3 }} <br>
-                    Description {{ request.4 }} <br> <br>      
+                    <strong>{{ request.1  }}</strong> <br>  
+
+                    Location {{request.0.location}} <br>
+                    Date {{request.0.date}} <br>
+                    Time {{ request.0.time }} <br>
+                    Description {{ request.0.description }} <br> <br>      
                     <form method = 'POST' >     
                         {% csrf_token %}   
                         <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
@@ -22,7 +26,7 @@
                         <button type="submit" name="submit" value="reject">Reject</button>
                     </form>
                     <br> <br>
-                </p>
+                </p> <br>
                 {% endfor %}
             {% else %}
                 <p> You currently do not have any meetup requests </p>
