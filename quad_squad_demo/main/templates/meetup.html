@@ -1,9 +1,9 @@
 {% extends "base_logged.html"%}
 {% block content %} 
-            <h2>Calendar</h2> 
+            <h3>Calendar</h3> 
         <!-- <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
         <div>
-            <h2>Meetups</h2>
+            <h3>Meetups</h3>
             {% if meetups %}
                 {% for meetup in meetups %}
                     <br>
@@ -25,7 +25,7 @@
             {% endif %}
         </div>
         <div>
-            <h2>Meetup Requests</h2>
+            <h3>Meetup Requests</h3>
             {% if requests %}
                 {% for request in requests %}
                     <br>
@@ -50,7 +50,7 @@
             {% endif %}
         </div>
         <div>
-            <h2>Meetups Sent</h2>
+            <h3>Meetups Sent</h3>
             {% if sends %}
                 {% for send in sends %}
                     <br>
@@ -67,7 +67,7 @@
             {% endif %}
         </div>
         <form method="POST">
-            <h2> New Meetup </h2> <br> <br> <br>
+            <h3> New Meetup </h3> <br> <br> <br>
             {% csrf_token %}
             {% for field in form %}
                 {{ field.errors }}
@@ -78,8 +78,12 @@
                             <option value="{{ user.id }}">{{user.first_name}} {{user.last_name}}</option>
                         {% endfor %}
                     </select>
-                {% else %}     
-                    {{field.label_tag}}
+                {% elif field.label == 'Date' %}     
+                    {{ field.label_tag }}
+                    {{ field }}
+					{{ field.help_text }}
+				{% else %}
+					{{ field.label_tag }}
                     {{ field }}
                 {% endif %}
                 <br> <br>
