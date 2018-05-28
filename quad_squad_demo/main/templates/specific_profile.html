@@ -1,9 +1,13 @@
 {% extends "base_logged.html"%}
 	{% block content %}
-        name: {{ user.first_name }} {{ user.last_name }} </br>
-        dob: {{ user.dob }} </br>
-        description: {{ user.description }} </br>
-        email: {{ user.email }} </br>
+        <h2> {{ user.first_name }} {{ user.last_name }} </h2>  <br>
+        <h3>Profile Details</h3>
+        <div class="p"> Bio: </div> 
+        {{ user.description }}</br><br>
+        <div class="p"> Email: </div> 
+        {{ user.email }}</br><br>
+        <div class="p"> D.o.B: </div> 
+        {{ user.dob }}  </br><br>
         </br>
 		<form method="POST">
 			{% csrf_token %}
