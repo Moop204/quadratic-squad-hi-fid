@@ -22,7 +22,7 @@ class AccountForm(ModelForm):
         model = ExtUser
         fields = ['description']
         widgets = {
-            'description': Textarea(attrs={'cols': 80, 'rows': 20}),
+            'description': Textarea(attrs={'cols': 50, 'rows': 10}),
         }
 
 
@@ -40,11 +40,8 @@ class MeetupForm(ModelForm):
         model = Pending_Meetup
         fields = ['guest', 'location', 'time', 'date', 'description']
         widgets = {
-            'description': Textarea(attrs={'cols': 80, 'rows': 20}),
+            'description': Textarea(attrs={'cols': 50, 'rows': 10}),
         }
-
-    def is_valid(self):
-        True
     
 # form for searching textbooks
 class TextbookSearchForm(forms.Form):

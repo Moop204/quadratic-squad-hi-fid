@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, get_user, logout
-from .controller import userQueries, loginQueries, matchMaker, meetupQueries
+from .controller import *
 from django.contrib.auth.forms import AuthenticationForm 
 from .forms import *
 from .models import *
@@ -215,63 +215,59 @@ def index_match(request):
 # main meetup page
 @login_required(redirect_field_name='login')
 def index_meetup(request):
-    c_user = get_user(request)
-    uid = c_user.id
-    meetup_req = meetupQueries.getRequestList(uid)
-    meetup_sen = []
-    req=[]
-    for meetup in meetup_req:
-        fn= meetup.host.first_name
-        ln= meetup.host.last_name
-        con = " "
-        seq = (fn, ln)
-        name=con.join(seq)
-        tmp = [meetup, name]
-        req.append(tmp) 
-    return render(request, 'meetup.html',
-        {
-        'requests':req,
-        'sends':meetup_sen,
-        }
-    ) 
-
-@login_required(redirect_field_name='login')
-def create_meetup(request):
-    c_user = get_user(request)
-    
+    user = get_user(request)
     if (request.method == "POST"):
         form = MeetupForm(request.POST)
+        # make new meetup
+        if (form.is_valid() and "request" in request.POST):
+            data = form.cleaned_data
+            if (user is not data['guest']):
+                new_meetup = Pending_Meetup(host=user, guest=data['guest'], 
+                            location=data['location'], time=data['time'], date=data['date'], description=data['description'], status='p')
+                try:
+                    new_meetup.save()
+                    return redirect('meetup')
+                except:
+                    pass
+        else:
+            form = MeetupForm()
+        # accept meetup
+        if ("accept" in request.POST):
+            accepted_meetup = Pending_Meetup.objects.filter(id=request.POST['accept']).first()
+            accepted_meetup.status = 'a'
+            try:
+                accepted_meetup.save()
+            except:
+                pass
+
+        # reject meetup
+        if ("reject" in request.POST):
+            rejected_meetup = Pending_Meetup.objects.filter(id=request.POST['reject']).first()
+            try:
+                rejected_meetup.delete()
+            except:
+                pass            
     else:
         form = MeetupForm()
-    users = userQueries.allUsers()    
-    error = ""
-    if request.method == 'POST' and 'request_meetup' in request.POST:
-        uid = c_user.id
-        print(form)
-        print(request.POST)
-        if form.is_valid() or True:
-            try:
-                req = Pending_Meetup(
-                    host=c_user, 
-                    guest=form.cleaned_data['guest'],
-                    location=form.cleaned_data['location'],
-                    time=form.cleaned_data['time'],
-                    date=form.cleaned_data['date'],
-                    description = form.cleaned_data['description'],
-                )
-            except:
-                redirect('create_meetup')
-            req.save()
-            return redirect('meetup')
-        else:
-            error = "You have provided invalid data, please use the correct format" 
-    return render(request, 'meetup_make.html', 
+
+    requests = MeetupQueries.getRequestList(user)
+    sends = MeetupQueries.getSentList(user)
+    meetups = MeetupQueries.getMeetupList(user)
+    matches = []
+    for match in Matches.objects.filter(status='a').filter(sender=user).all():
+        matches.append(match.receiver)
+    for match in Matches.objects.filter(status='a').filter(receiver=user).all():
+        matches.append(match.sender)
+
+    return render(request, 'meetup.html',
         {
+        'requests':requests,
+        'sends':sends,
+        'meetups':meetups,
         'form':form,
-        'users':users,
-        'error':error,
+        'users':matches
         }
-    )
+    ) 
 
 # main message page
 @login_required(redirect_field_name='login')
@@ -293,14 +289,7 @@ def index_message(request):
         'user': user,
         'form':form,    
         }
-    ) 
-
-# main textbook page
-def match_find(request):
-    if request.method == 'POST' and 'return' in request.POST:
-        return redirect('return_match')
-    return render(request, 'find_match.html',) 
-    
+    )   
 
 # main textbook page
 def index_textbook(request):

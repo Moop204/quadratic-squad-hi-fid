@@ -53,3 +53,9 @@ class Pending_Meetup(models.Model):
     date = models.DateField('Date') 
     description = models.CharField(max_length=300)
 
+    MEET_STATUS=(
+        ('p','Pending'),
+        ('a','Accepted'),
+    )
+    status = models.CharField(max_length=1, choices=MEET_STATUS,)
+

@@ -1,36 +1,94 @@
 {% extends "base_logged.html"%}
 {% block content %} 
-            <br><br>
-            <h2>Calendar</h2>
-            <br> <br>   
-        <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> 
-            <a href="{% url 'make_meetup' %}">
-                <button>Create Meetup</button>
-            </a>
-        <br> <br> <br>
+            <h2>Calendar</h2> 
+        <!-- <iframe src="https://calendar.google.com/calendar/embed?src=thealwaysboredone%40gmail.com&ctz=Australia%2FSydney" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+        <div>
+            <h2>Meetups</h2>
+            {% if meetups %}
+                {% for meetup in meetups %}
+                    <br>
+                    Host: 
+                    <a href={{ meetup.host }}>
+                        {{ meetup.host.first_name }} {{ meetup.host.last_name }}
+                    </a>
+                    Guest: 
+                    <a href={{ meetup.guest }}>
+                        {{ meetup.guest.first_name }} {{ meetup.guest.last_name }}
+                    </a>
+                    location: {{ meetup.location }} <br>
+                    date: {{ meetup.date }} <br>
+                    time: {{ meetup.time }} <br>
+                    description: {{ meetup.description }} <br> <br> <br>
+                {% endfor %}
+            {% else %}
+                <p> You currently do not have any meetups </p>
+            {% endif %}
+        </div>
         <div>
             <h2>Meetup Requests</h2>
             {% if requests %}
                 {% for request in requests %}
-                <p>
-                    <strong>{{ request.1  }}</strong> <br>  
-
-                    Location {{request.0.location}} <br>
-                    Date {{request.0.date}} <br>
-                    Time {{ request.0.time }} <br>
-                    Description {{ request.0.description }} <br> <br>      
-                    <form method = 'POST' >     
-                        {% csrf_token %}   
-                        <button type="button" onclick="window.location='/user/timothy'";>Profile</button>
-                        <button type="submit" name="submit" value="accept">Accept</button>
-                        <button type="submit" name="submit" value="reject">Reject</button>
-                    </form>
-                    <br> <br>
-                </p> <br>
+                    <br>
+                    <a href={{ send.host }}>
+                        {{ request.host.first_name }} {{ request.host.last_name }}
+                    </a>
+                    location: {{ request.location }} <br>
+                    date: {{ request.date }} <br>
+                    time: {{ request.time }} <br>
+                    description: {{ request.description }} <br>
+                    <form method="POST"> 
+                        {% csrf_token %}
+                        <button type="submit" name="accept" value="{{ request.id }}">Accept</button> 
+                    </form> 
+                    <form method="POST"> 
+                        {% csrf_token %}
+                        <button type="submit" name="reject" value="{{ request.id }}">Reject</button> 
+                    </form> <br> <br> <br>
                 {% endfor %}
             {% else %}
                 <p> You currently do not have any meetup requests </p>
             {% endif %}
         </div>
+        <div>
+            <h2>Meetups Sent</h2>
+            {% if sends %}
+                {% for send in sends %}
+                    <br>
+                    <a href={{ send.guest }}>
+                        {{ send.guest.first_name }} {{ send.guest.last_name }}
+                    </a>
+                    location: {{ send.location }} <br>
+                    date: {{ send.date }} <br>
+                    time: {{ send.time }} <br>
+                    description: {{ send.description }} <br> <br> <br>
+                {% endfor %}
+            {% else %}
+                <p> You currently do not have any meetups sent </p>
+            {% endif %}
+        </div>
+        <form method="POST">
+            <h2> New Meetup </h2> <br> <br> <br>
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.errors }}
+                {% if field.label == 'Guest' %}
+                    {{field.label_tag}}
+                    <select name="guest">
+                        {% for user in users %}
+                            <option value="{{ user.id }}">{{user.first_name}} {{user.last_name}}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}     
+                    {{field.label_tag}}
+                    {{ field }}
+                {% endif %}
+                <br> <br>
+            {% endfor %}
+            <br> <br> <br>
+        	<button type="submit" name="request" value="request">Send</button>
+            {{ error }}
+            {{ form.error }}
+            {{ form.non_field_errors }}
+        </form>
 {% endblock %} 
 
