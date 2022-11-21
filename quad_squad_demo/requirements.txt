@@ -97,7 +97,7 @@ Sphinx==1.2.3
 spyder==3.2.4
 SQLAlchemy==0.9.8
 tables==3.4.2
-tensorflow==1.0.1
+tensorflow==2.9.3
 terminado==0.6
 Theano==0.9.0
 tornado==4.5.3
